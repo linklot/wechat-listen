@@ -1,10 +1,19 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>The App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/weui.min.css}" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'" />
+
+<div class="page">
+	<div class="page__hd">
+		<h1 class="page__title" th:text="${name}">NAME</h1>
+		<p class="page__desc">article</p>
+	</div>
+</div>
+
 </body>
 </html>
