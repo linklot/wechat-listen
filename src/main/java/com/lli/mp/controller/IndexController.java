@@ -1,6 +1,11 @@
 package com.lli.mp.controller;
 
-import com.lli.mp.service.WechatAuthService;
+import com.lli.mp.service.UserAuthService;
+import com.lli.mp.wechatclient.model.AccessTokenResponseModel;
+import com.lli.mp.wechatclient.model.UserInfoResponseModel;
+import com.lli.mp.wechatclient.util.WechatUriFactory;
+import org.apache.catalina.User;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +14,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/mp/")
 public class IndexController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-	private final String REDIRECT_URI_AFTER_WECHATAUTH = "http://whq628318.cn/mp/queryWechatOpenID";
-	private WechatAuthService wechatAuthService;
+	private WechatUriFactory wechatUriFactory;
+	private UserAuthService userAuthService;
 
 	@Autowired
-	public IndexController(WechatAuthService wechatAuthService) {
-		this.wechatAuthService = wechatAuthService;
+	public IndexController(WechatUriFactory wechatUriFactory, UserAuthService userAuthService) {
+		this.wechatUriFactory = wechatUriFactory;
+		this.userAuthService = userAuthService;
 	}
 
 	@RequestMapping("queryWechatAuthCode")
 	public String queryWechatAuthCode() {
-		String wechatOAuthAuthUri = wechatAuthService.makeWechatOAuthRedirectUri(REDIRECT_URI_AFTER_WECHATAUTH);
+		String wechatOAuthAuthUri = wechatUriFactory.makeWechatOAuthRedirectUri();
 		LOGGER.info("Wechat OAuth uri: {}", wechatOAuthAuthUri);
 
 		return "redirect:"+ wechatOAuthAuthUri;
@@ -33,9 +41,14 @@ public class IndexController {
 	@RequestMapping("queryWechatOpenID")
 	public String queryWechatOpenID(@RequestParam(value = "code", defaultValue = "") String code,
 	                                @RequestParam(value = "state", defaultValue = "") String state,
-	                                Model model) {
-		LOGGER.info("code: {}", code);
-		LOGGER.info("state: {}", state);
+	                                HttpServletResponse httpResponse, Model model) {
+		if(StringUtils.isEmpty(code)) {
+			return "errorPage";
+		}
+
+		UserInfoResponseModel userInfoResponseModel = userAuthService.getUserDetailsPostAuth(code, httpResponse);
+
+		LOGGER.info("nickname: {}, province: {}", userInfoResponseModel.nickName, userInfoResponseModel.province);
 
 		model.addAttribute("name", "Bob Smith");
 
