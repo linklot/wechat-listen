@@ -17,7 +17,7 @@ public class DefaultRestTemplateTest {
 
     @Test
     public void testNormal() {
-        String result = restTemplate.getForObject("https://www.google.com.au/?gfe_rd=cr&ei=yWCEWM-tIcXN8ge1zrCQAQ", String.class);
+        String result = restTemplate.getForObject("https://zc.reg.163.com/regInitialized", String.class);
         assertTrue(result.length() > 1);
     }
 }
