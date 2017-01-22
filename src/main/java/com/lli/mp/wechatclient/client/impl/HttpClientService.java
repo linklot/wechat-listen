@@ -24,8 +24,8 @@ public class HttpClientService implements ClientService {
     @Autowired
     public HttpClientService(@Value("${appid}") String appId,
                              @Value("${appsecret}") String appsecret,
-                             @Value("wechat_accesstoken_uri_template") String wechatAccessTokenUriTemplate,
-                             @Value("wechat_userinfo_uri_template") String wechatUserInfoUriTemplate,
+                             @Value("${wechat_accesstoken_uri_template}") String wechatAccessTokenUriTemplate,
+                             @Value("${wechat_userinfo_uri_template}") String wechatUserInfoUriTemplate,
                              RestTemplate restTemplate) {
         this.appId = appId;
         this.appsecret = appsecret;
@@ -37,7 +37,6 @@ public class HttpClientService implements ClientService {
     @Override
     public AccessTokenResponseModel getAccessTokenByCode(String code) {
         String wechatAccessTokenUri = String.format(wechatAccessTokenUriTemplate, appId, appsecret, code);
-        LOGGER.info("url: {}", wechatAccessTokenUri);
         return restTemplate.getForObject(wechatAccessTokenUri, AccessTokenResponseModel.class);
     }
 
