@@ -46,9 +46,13 @@ public class IndexController {
 			return "errorPage";
 		}
 
-		UserInfoResponseModel userInfoResponseModel = userAuthService.getUserDetailsPostAuth(code, httpResponse);
+		try {
+			UserInfoResponseModel userInfoResponseModel = userAuthService.getUserDetailsPostAuth(code, httpResponse);
 
-		LOGGER.info("nickname: {}, province: {}", userInfoResponseModel.nickName, userInfoResponseModel.province);
+			LOGGER.info("nickname: {}, province: {}", userInfoResponseModel.nickName, userInfoResponseModel.province);
+		} catch (Exception e) {
+			LOGGER.error("error: {}", e.getMessage());
+		}
 
 		model.addAttribute("name", "Bob Smith");
 

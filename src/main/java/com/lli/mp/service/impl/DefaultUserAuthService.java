@@ -23,7 +23,7 @@ public class DefaultUserAuthService implements UserAuthService {
     }
 
     @Override
-    public UserInfoResponseModel getUserDetailsPostAuth(String code, HttpServletResponse httpResponse) {
+    public UserInfoResponseModel getUserDetailsPostAuth(String code, HttpServletResponse httpResponse) throws Exception {
         AccessTokenResponseModel tokenResponseModel = clientService.getAccessTokenByCode(code);
         return clientService.getUserInfoByTokenAndOpenId(tokenResponseModel.accessToken, tokenResponseModel.openId);
     }
