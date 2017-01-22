@@ -42,9 +42,7 @@ public class HttpClientService implements ClientService {
     @Override
     public AccessTokenResponseModel getAccessTokenByCode(String code) throws Exception {
         String wechatAccessTokenUri = String.format(wechatAccessTokenUriTemplate, appId, appsecret, code);
-        String response = restTemplate.getForEntity(wechatAccessTokenUri, String.class).getBody();
-
-        LOGGER.info("response: {}", response);
+        String response = restTemplate.getForObject(wechatAccessTokenUri, String.class);
 
 	    ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(response, AccessTokenResponseModel.class);
@@ -53,7 +51,7 @@ public class HttpClientService implements ClientService {
     @Override
     public UserInfoResponseModel getUserInfoByTokenAndOpenId(String accessToken, String openId) throws Exception {
         String wechatUserInfoUri = String.format(wechatUserInfoUriTemplate, accessToken, openId);
-        String response = restTemplate.getForEntity(wechatUserInfoUri, String.class).getBody();
+        String response = restTemplate.getForObject(wechatUserInfoUri, String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(response, UserInfoResponseModel.class);
