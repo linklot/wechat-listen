@@ -19,7 +19,7 @@ public class HttpWechatAuthService implements WechatAuthService {
 	private String extWechatOAuthUri;
 
 	public HttpWechatAuthService(@Value("${appid}") String appid,
-	                             @Value("${wechat_oauth_uri}") String extWechatOAuthUri) {
+	                             @Value("${ext_wechat_oauth_uri}") String extWechatOAuthUri) {
 		this.appid = appid;
 		this.extWechatOAuthUri = extWechatOAuthUri;
 	}
