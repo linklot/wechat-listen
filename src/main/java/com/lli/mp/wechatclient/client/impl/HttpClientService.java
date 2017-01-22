@@ -3,6 +3,8 @@ package com.lli.mp.wechatclient.client.impl;
 import com.lli.mp.wechatclient.client.ClientService;
 import com.lli.mp.wechatclient.model.AccessTokenResponseModel;
 import com.lli.mp.wechatclient.model.UserInfoResponseModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class HttpClientService implements ClientService {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     private String appId;
     private String appsecret;
@@ -33,6 +37,7 @@ public class HttpClientService implements ClientService {
     @Override
     public AccessTokenResponseModel getAccessTokenByCode(String code) {
         String wechatAccessTokenUri = String.format(wechatAccessTokenUriTemplate, appId, appsecret, code);
+        LOGGER.info("url: {}", wechatAccessTokenUri);
         return restTemplate.getForObject(wechatAccessTokenUri, AccessTokenResponseModel.class);
     }
 
