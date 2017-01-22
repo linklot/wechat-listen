@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,6 +33,7 @@ public class HttpClientService implements ClientService {
         this.wechatAccessTokenUriTemplate = wechatAccessTokenUriTemplate;
         this.wechatUserInfoUriTemplate = wechatUserInfoUriTemplate;
         this.restTemplate = restTemplate;
+        this.restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
     }
 
     @Override
@@ -42,7 +44,6 @@ public class HttpClientService implements ClientService {
 
     @Override
     public UserInfoResponseModel getUserInfoByTokenAndOpenId(String accessToken, String openId) {
-        System.out.println(wechatUserInfoUriTemplate);
         String wechatUserInfoUri = String.format(wechatUserInfoUriTemplate, accessToken, openId);
         return restTemplate.getForObject(wechatUserInfoUri, UserInfoResponseModel.class);
     }
