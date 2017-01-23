@@ -1,9 +1,7 @@
 package com.lli.mp.service;
 
-import com.lli.mp.wechatclient.model.UserInfoResponseModel;
-
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 public interface UserAuthService {
-    UserInfoResponseModel getUserDetailsPostAuth(String code, HttpServletResponse httpResponse) throws Exception;
+    void userLogin(String code, HttpServletRequest httpRequest) throws Exception;
 }

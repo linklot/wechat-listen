@@ -1,10 +1,7 @@
 package com.lli.mp.controller;
 
 import com.lli.mp.service.UserAuthService;
-import com.lli.mp.wechatclient.model.AccessTokenResponseModel;
-import com.lli.mp.wechatclient.model.UserInfoResponseModel;
 import com.lli.mp.wechatclient.util.WechatUriFactory;
-import org.apache.catalina.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/mp/")
@@ -41,15 +38,13 @@ public class IndexController {
 	@RequestMapping("queryWechatOpenID")
 	public String queryWechatOpenID(@RequestParam(value = "code", defaultValue = "") String code,
 	                                @RequestParam(value = "state", defaultValue = "") String state,
-	                                HttpServletResponse httpResponse, Model model) {
+	                                HttpServletRequest httpRequest, Model model) {
 		if(StringUtils.isEmpty(code)) {
 			return "errorPage";
 		}
 
 		try {
-			UserInfoResponseModel userInfoResponseModel = userAuthService.getUserDetailsPostAuth(code, httpResponse);
-
-			LOGGER.info("nickname: {}, province: {}", userInfoResponseModel.nickName, userInfoResponseModel.province);
+			userAuthService.userLogin(code, httpRequest);
 		} catch (Exception e) {
 			LOGGER.error("error: {}", e.getMessage());
 		}
