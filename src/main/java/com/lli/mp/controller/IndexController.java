@@ -70,7 +70,7 @@ public class IndexController {
 
 	@RequestMapping("local_index")
 	public String localIndex(Model model) {
-		UserUiModel userUiModel = new UserUiModel("nick name", "1", "province", "city", "country", "headImgUrl");
+		UserUiModel userUiModel = new UserUiModel("一二三", "1", "province", "city", "country", "/image/avatar.png");
 		model.addAttribute("user", userUiModel);
 		return "index";
 	}
