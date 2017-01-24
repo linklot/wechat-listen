@@ -12,6 +12,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.Charset;
+
 @Service
 public class HttpClientService implements ClientService {
 
@@ -34,6 +36,7 @@ public class HttpClientService implements ClientService {
         this.wechatAccessTokenUriTemplate = wechatAccessTokenUriTemplate;
         this.wechatUserInfoUriTemplate = wechatUserInfoUriTemplate;
         this.restTemplate = restTemplate;
+        this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
     }
 
