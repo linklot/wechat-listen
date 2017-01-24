@@ -1,0 +1,21 @@
+#lli_head_ad {
+	background-image: url(/image/main.jpg);
+	height: 200px;
+}
+
+#lli_user_bar {
+	box-shadow: 0px 5px 23px rgba(183, 174, 174, 0.5);
+	padding: 10px;
+}
+
+#lli_user_wrapper {
+	padding: 0;
+	line-height: 1;
+}
+
+.lli_user_headImg {
+	border: 0;
+	height: 40px;
+	width: 40px;
+	border-radius: 4px;
+}

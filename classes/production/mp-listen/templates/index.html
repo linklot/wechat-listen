@@ -4,14 +4,22 @@
     <title>The App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/weui.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/example.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/weui.min.css" th:href="@{/css/weui.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/example.css" th:href="@{/css/example.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
 </head>
 <body>
 
 <div class="page home js_show">
+    <div id="lli_head_ad"></div>
+    <dir id="lli_user_bar">
+        <div id="lli_user_wrapper">
+            <img class="lli_user_headImg" src="/image/avatar.png" width="40" height="40" th:src="${user.headImgUrl}" />
+        </div>
+    </dir>
+
     <div class="page__hd">
-        <h1 class="page__title" th:text="${name}">NAME</h1>
+        <h1 class="page__title" th:text="${user.nickName}">NAME</h1>
         <p class="page__desc">article</p>
     </div>
 

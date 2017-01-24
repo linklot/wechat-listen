@@ -29,6 +29,11 @@ public class DefaultLocalUserService implements LocalUserService {
 		return eUser;
 	}
 
+	@Override
+	public User findUserById(String userId) {
+		return userRepository.findOne(userId);
+	}
+
 	private User populateExistingUser(User eUser, User user) {
 		eUser.nickName = user.nickName;
 		eUser.sex = user.sex;

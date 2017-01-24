@@ -1,5 +1,6 @@
 package com.lli.mp.service.impl;
 
+import com.lli.mp.controller.model.UserUiModel;
 import com.lli.mp.entity.User;
 import com.lli.mp.service.LocalUserService;
 import com.lli.mp.service.UserAuthService;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Service
 public class DefaultUserAuthService implements UserAuthService {
@@ -38,7 +42,35 @@ public class DefaultUserAuthService implements UserAuthService {
 		User user = userConverter.convertWechatResponseToUser(tokenResponseModel, userInfoResponseModel);
 		user = localUserService.saveOrUpdateUser(user);
 		httpRequest.getSession().setAttribute("user_id", user.id);
+		LOGGER.info("User {} sign-in. Openid: {}", user.id, user.openId);
+	}
 
-		LOGGER.info("user_id: {}", user.id);
+	@Override
+	public boolean isUserSignedIn(HttpServletRequest httpRequest) {
+		HttpSession session = httpRequest.getSession();
+		if(session != null && session.getAttribute("user_id") != null) {
+			return isNotEmpty(session.getAttribute("user_id").toString());
+		}
+		return false;
+	}
+
+	@Override
+	public String getUserIdFromSession(HttpServletRequest httpRequest) {
+		HttpSession session = httpRequest.getSession();
+		if(session == null || session.getAttribute("user_id") == null) {
+			return "";
+		}
+		return session.getAttribute("user_id").toString();
+	}
+
+	@Override
+	public UserUiModel getCurrentUser(HttpServletRequest httpRequest) {
+		String userId = getUserIdFromSession(httpRequest);
+		User user = localUserService.findUserById(userId);
+		UserUiModel userUiModel = new UserUiModel(
+				user.nickName, user.sex, user.province, user.city,
+				user.country, user.headImgUrl
+		);
+		return userUiModel;
 	}
 }
