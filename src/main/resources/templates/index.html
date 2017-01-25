@@ -19,25 +19,28 @@
         </div>
     </dir>
 
-    <div class="page__hd">
-        <h1 class="page__title" th:text="${user.nickName}">NAME</h1>
-        <p class="page__desc">article</p>
-    </div>
+    <a class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt=""/>
+        </div>
+        <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title lli_audio_title">文件标题</h4>
+            <p class="weui-media-box__desc lli_audio_desc">简单说明</p>
+        </div>
+        <div class="weui-cell__ft lli_pub_datetime">2017-01-15</div>
+    </a>
 
-    <div class="page__bd page__bd_spacing">
-        <ul>
-            <li class="">
-                <div class="weui-flex js_category">
-                    <p class="weui-flex__item">
-                        <audio controls="controls">
-                            <source th:src="@{/audio/police.mp3}" type="audio/mp3" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <a class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt=""/>
+        </div>
+        <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">文件标题</h4>
+            <p class="weui-media-box__desc">简单说明</p>
+        </div>
+        <div class="weui-cell__ft lli_pub_datetime">2017-01-17</div>
+    </a>
+
 </div>
 
 </body>

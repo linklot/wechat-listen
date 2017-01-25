@@ -8,8 +8,8 @@
 }
 
 #lli_user_wrapper {
-	height: 50px;
-	padding: 10px 10px 0 10px;
+	height: 45px;
+	padding: 5px 10px 0 10px;
 }
 
 .lli_user_headImg {
@@ -22,6 +22,18 @@
 
 .lli_user_nickname {
 	float: left;
-	margin-left: 5px;
+	margin-left: 8px;
 	padding-top: 8px;
+}
+
+.lli_audio_title {
+	font-size: 14px;
+}
+
+.lli_audio_desc {
+	font-size: 12px;
+}
+
+.lli_pub_datetime {
+	font-size: 12px;
 }
