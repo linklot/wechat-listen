@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>The App</title>
+    <title>听讯测试</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="/css/weui.min.css" th:href="@{/css/weui.min.css}" />
-    <link rel="stylesheet" type="text/css" href="/css/example.css" th:href="@{/css/example.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
 </head>
 <body>
 
-<div class="page home js_show">
+<!-- Fixed top -->
+<div class="lli_top_ad">
     <div id="lli_head_ad"></div>
     <dir id="lli_user_bar">
         <div id="lli_user_wrapper">
@@ -18,30 +18,110 @@
             <div class="lli_user_nickname" th:text="${user.nickName}">Nick Name</div>
         </div>
     </dir>
+</div>
+<!-- End fixed top -->
 
-    <a class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="/image/avatar.png" alt=""/>
+<!-- Page content -->
+<div class="lli_content">
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
         </div>
-        <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title lli_audio_title">文件标题</h4>
-            <p class="weui-media-box__desc lli_audio_desc">简单说明</p>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
         </div>
-        <div class="weui-cell__ft lli_pub_datetime">2017-01-15</div>
-    </a>
+    </div>
 
-    <a class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="/image/avatar.png" alt=""/>
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
         </div>
-        <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title">文件标题</h4>
-            <p class="weui-media-box__desc">简单说明</p>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
         </div>
-        <div class="weui-cell__ft lli_pub_datetime">2017-01-17</div>
-    </a>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
+
+    <div class="lli_devider"></div>
+    <div class="media lli_media">
+        <div class="media-left">
+            <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">音频标题<small class="lli_pub_datetime">2017-01-28</small></h4>
+            简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述简单描述
+        </div>
+    </div>
 
 </div>
-
+<!-- End page content -->
 </body>
 </html>

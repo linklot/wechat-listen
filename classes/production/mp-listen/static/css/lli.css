@@ -1,15 +1,24 @@
+body {
+	overflow: scroll;
+}
+
+.lli_content {
+    margin-top: 20px;
+}
+
 #lli_head_ad {
 	background-image: url(/image/main.jpg);
 	height: 180px;
 }
 
 #lli_user_bar {
+	margin: 0;
+	padding: 5px 10px 0 10px;
 	box-shadow: 0px 5px 23px rgba(183, 174, 174, 0.5);
 }
 
 #lli_user_wrapper {
 	height: 45px;
-	padding: 5px 10px 0 10px;
 }
 
 .lli_user_headImg {
@@ -26,14 +35,17 @@
 	padding-top: 8px;
 }
 
-.lli_audio_title {
-	font-size: 14px;
-}
-
-.lli_audio_desc {
-	font-size: 12px;
+.lli_media {
+	padding: 0 5px 0 5px;
 }
 
 .lli_pub_datetime {
-	font-size: 12px;
+	margin-left: 10px;
+	color: blue;
+}
+
+.lli_devider {
+	height: 1px;
+	background-color: #EEE;
+	margin: 4px 6px 0 6px;
 }
