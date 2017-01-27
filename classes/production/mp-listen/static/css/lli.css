@@ -62,3 +62,7 @@ body {
 .lli_clickable {
 	cursor: pointer;
 }
+
+.tap-bg-color {
+	background-color: #ccc;
+}

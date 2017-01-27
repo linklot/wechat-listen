@@ -7,7 +7,7 @@
     		LLI.onMediaClicked(id);
     	});
 
-    	$('.lli_clickable').on('touchstart', function () {
+    	$('.lli_clickable').on('mouseover', function () {
     		$(this).addClass('tap-bg-color');
   		});
 	  	$(".lli_clickable").on('touchend', function (event) {
