@@ -10,12 +10,12 @@ body {
 }
 
 .lli_content {
-    margin-top: 250px;
+    margin-top: 190px;
 }
 
 #lli_head_ad {
 	background-image: url(/image/main.jpg);
-	height: 180px;
+	height: 120px;
 }
 
 #lli_user_bar {
