@@ -26,6 +26,7 @@ public class UserUiModel {
 		return sex;
 	}
 
+
 	public String getProvince() {
 		return province;
 	}

@@ -1,9 +1,16 @@
 body {
-	overflow: scroll;
+	height: 100%;
+    width: %100;
+}
+
+.lli_top_ad {
+	width:100%;
+    position:fixed;
+    top: 0px;
 }
 
 .lli_content {
-    margin-top: 20px;
+    margin-top: 250px;
 }
 
 #lli_head_ad {
@@ -15,6 +22,7 @@ body {
 	margin: 0;
 	padding: 5px 10px 0 10px;
 	box-shadow: 0px 5px 23px rgba(183, 174, 174, 0.5);
+	background-color: #fff;
 }
 
 #lli_user_wrapper {
