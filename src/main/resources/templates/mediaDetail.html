@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${id}">Media Detail></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
+</head>
+<body>
+
+<!-- Fixed top -->
+<div class="lli_top_ad">
+    <div id="lli_head_ad"></div>
+    <dir id="lli_user_bar">
+        <div id="lli_user_wrapper">
+            <img class="lli_user_headImg" src="/image/avatar.png" width="40" height="40" th:src="${user.headImgUrl}" />
+            <div class="lli_user_nickname" th:text="${user.nickName}">Nick Name</div>
+        </div>
+    </dir>
+</div>
+<!-- End fixed top -->
+
+<!-- Page content -->
+<div class="lli_content">
+</div>
+<!-- End page content -->
+
+<script type="text/javascript" src="/js/jquery-3.1.1.min.js" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/js/mediaDetail.js" th:src="@{/js/mediaDetail.js}"></script>
+
+</body>
+</html>

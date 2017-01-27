@@ -15,6 +15,7 @@ body {
 
 #lli_head_ad {
 	background-image: url(/image/main.jpg);
+	background-color: #FFF;
 	height: 120px;
 }
 
@@ -56,4 +57,8 @@ body {
 	height: 1px;
 	background-color: #EEE;
 	margin: 4px 6px 0 6px;
+}
+
+.lli_clickable {
+	cursor: pointer;
 }

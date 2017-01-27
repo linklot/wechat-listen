@@ -9,13 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/mp/")
+@RequestMapping("/mp")
 public class IndexController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -28,14 +29,14 @@ public class IndexController {
 		this.userAuthService = userAuthService;
 	}
 
-	@RequestMapping("queryWechatAuthCode")
+	@RequestMapping("/queryWechatAuthCode")
 	public String queryWechatAuthCode() {
 		String wechatOAuthAuthUri = wechatUriFactory.makeWechatOAuthRedirectUri();
 		LOGGER.info("Wechat OAuth uri: {}", wechatOAuthAuthUri);
 		return "redirect:"+ wechatOAuthAuthUri;
 	}
 
-	@RequestMapping("queryWechatOpenID")
+	@RequestMapping("/queryWechatOpenID")
 	public String queryWechatOpenID(@RequestParam(value = "code", defaultValue = "") String code,
 	                                @RequestParam(value = "state", defaultValue = "") String state,
 	                                HttpServletRequest httpRequest, Model model) {
@@ -54,7 +55,7 @@ public class IndexController {
 		return "redirect:index";
 	}
 
-	@RequestMapping("index")
+	@RequestMapping("/index")
 	public String indexPage(HttpServletRequest httpRequest, Model model) {
 		boolean userSignedIn = userAuthService.isUserSignedIn(httpRequest);
 
@@ -66,6 +67,35 @@ public class IndexController {
 		model.addAttribute("user", userUiModel);
 
 		return "index";
+	}
+
+	@RequestMapping("/mediaDetail")
+	public String mediaPage(@RequestParam("id") String id,
+	                        HttpServletRequest httpRequest, Model model) {
+		model.addAttribute("id", id);
+
+		boolean userSignedIn = userAuthService.isUserSignedIn(httpRequest);
+
+		if(!userSignedIn) {
+			return "redirect:queryWechatAuthCode";
+		}
+
+		UserUiModel userUiModel = userAuthService.getCurrentUser(httpRequest);
+		model.addAttribute("user", userUiModel);
+
+		return "mediaDetail";
+	}
+
+	@RequestMapping("/local_mediaDetail")
+	public String localMediaPage(@RequestParam("id") String id,
+	                        HttpServletRequest httpRequest, Model model) {
+		model.addAttribute("id", id);
+
+		UserUiModel userUiModel = new UserUiModel("一二三", "1", "province", "city", "country", "/image/avatar.png");
+		model.addAttribute("user", userUiModel);
+		model.addAttribute("user", userUiModel);
+
+		return "mediaDetail";
 	}
 
 	@RequestMapping("local_index")
