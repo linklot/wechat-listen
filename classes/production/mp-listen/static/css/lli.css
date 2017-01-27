@@ -10,7 +10,7 @@ body {
 }
 
 .lli_content {
-    margin-top: 190px;
+    margin-top: 185px;
 }
 
 #lli_head_ad {
@@ -50,19 +50,48 @@ body {
 
 .lli_pub_datetime {
 	margin-left: 10px;
-	color: blue;
+	color: #BBB;
 }
 
 .lli_devider {
-	height: 1px;
-	background-color: #EEE;
-	margin: 4px 6px 0 6px;
+	height: 5px;
 }
 
 .lli_clickable {
+	padding: 5px 0 5px 0;
 	cursor: pointer;
 }
 
 .tap-bg-color {
-	background-color: #ccc;
+	background-color: #F4F4F4;
+}
+
+.lli_media_container {
+	padding: 10px;
+}
+
+.lli_media_title {
+
+}
+
+.lli_media_img {
+	border: 1px solid #ccc;
+	background-image: url(/image/main.jpg);
+	background-color: #FFF;
+	height: 250px;
+}
+
+.lli_media_comment {
+	margin: 10px 0 10px 0;
+	line-height: 20px;
+}
+
+.ui360, .sm2-360ui {
+  width: 240px;
+  height: 240px;
+  margin: 2px auto 0 auto;
+}
+
+.sm2-360btn-default {
+	background-size: 50px 50px !important;
 }

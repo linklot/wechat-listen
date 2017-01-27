@@ -10,6 +10,13 @@
     	$('.lli_clickable').on('mouseover', function () {
     		$(this).addClass('tap-bg-color');
   		});
+	  	$(".lli_clickable").on('mouseout', function (event) {
+	    	$(this).removeClass('tap-bg-color');
+	  	});
+
+    	$('.lli_clickable').on('touchstart', function () {
+    		$(this).addClass('tap-bg-color');
+  		});
 	  	$(".lli_clickable").on('touchend', function (event) {
 	    	$(this).removeClass('tap-bg-color');
 	  	});

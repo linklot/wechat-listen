@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/360player.css" th:href="@{/css/360player.css}" />
     <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
 </head>
 <body>
@@ -23,11 +24,30 @@
 
 <!-- Page content -->
 <div class="lli_content">
+    <div class="lli_media_container">
+        <h4 class="lli_media_title">这是一个测试标题</h4>
+        <div class="lli_media_img">
+            <div id="lli_player_wrapper" class="ui360">
+                <a href="/audio/police.mp3" th:href="@{/audio/police.mp3}"></a>
+            </div>
+        </div>
+        <div class="lli_media_comment">
+        音频说明是一项可选叙事，描述了屏幕上正在显示的内容，包括身体动作、面部表情、服装、设置以及画面转换。 客户可以启用音频叙事，正如可以选择字幕和备选音频一样。
+尽管目前仅有少数英语字幕提供音频说明，但是希望在不久的将来，该功能在 Netflix 主要原创作品系列以及其他指定的电影和电视节目中均可使用。 我们正与工作室以及其他内容所有者合作，以期提高音频说明功能在多种设备（包括智能电视、平板电脑及智能手机）上的使用率。
+
+如需了解当前可提供音频说明的影片，请访问 netflix.com/browse/audio-description。 在某些电视节目中，可能并非所有季或所有剧集都具备音频说明。
+
+以下设备目前支持启用音频说明功能，日后会有更多的设备支持此功能：
+        </div>
+    </div>
 </div>
 <!-- End page content -->
 
 <script type="text/javascript" src="/js/jquery-3.1.1.min.js" th:src="@{/js/jquery-3.1.1.min.js}"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/js/soundmanager2-jsmin.js" th:src="@{/js/soundmanager2-jsmin.js}"></script>
+<script type="text/javascript" src="/js/berniecode-animator.js" th:src="@{/js/berniecode-animator.js}"></script>
+<script type="text/javascript" src="/js/360player.js" th:src="@{/js/360player.js}"></script>
 <script type="text/javascript" src="/js/mediaDetail.js" th:src="@{/js/mediaDetail.js}"></script>
 
 </body>
