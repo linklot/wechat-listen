@@ -27,7 +27,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.apache.commons:commons-lang3:3.5")
     compile("joda-time:joda-time:2.9.7")
+    compile("commons-io:commons-io:2.5")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="utf-8" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>预览音频</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" />
+    <link rel="stylesheet" href="/css/admin_common.css" th:href="@{/css/admin_common.css}" />
+    <link rel="stylesheet" href="/css/adminIndex.css" th:href="@{/css/adminIndex.css}" />
+</head>
+<body>
+
+<audio controls="controls">
+  <source th:src="@{/mp/audio/__${audio.id}__}" type="audio/mpeg"/>
+</audio>
+
+<script type="text/javascript">
+	var LLI = {};
+</script>
+
+<script type="text/javascript" src="/js/jquery-3.1.1.min.js" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/js/adminIndex.js" th:src="@{/js/adminIndex.js}"></script>
+<script type="text/javascript" src="/js/adminAudios.js" th:src="@{/js/adminAudios.js}"></script>
+
+</body>
+</html>
