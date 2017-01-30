@@ -28,9 +28,9 @@
     
     <div th:each="audio : ${audios}">
         <div class="lli_clickable" th:attr="data-id=${audio.id}">
-            <div class="media lli_media" data-id="123">
+            <div class="media lli_media">
                 <div class="media-left">
-                    <img class="weui-media-box__thumb" src="/image/avatar.png" alt="" height="64" width="64" />
+                    <img class="lli_audio_list_img" th:src="@{/mp/coverImg/__${audio.id}__}" alt="" height="55" width="55" />
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small></h4>

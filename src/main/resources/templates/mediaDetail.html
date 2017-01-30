@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${id}">Media Detail></title>
+    <title th:text="'财商资讯 - ' + ${audio.title}">Media Detail></title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
@@ -12,7 +12,7 @@
 
 <!-- Fixed top -->
 <div class="lli_top_ad">
-    <div id="lli_head_ad"></div>
+    <div id="lli_head_ad"><img src="/image/main.png" height="140"/></div>
     <dir id="lli_user_bar">
         <div id="lli_user_wrapper">
             <img class="lli_user_headImg" src="/image/avatar.png" width="40" height="40" th:src="${user.headImgUrl}" />

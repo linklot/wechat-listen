@@ -50,7 +50,12 @@ body {
 }
 
 .lli_media {
-	padding: 0 5px 0 5px;
+	padding: 2px 5px 2px 5px;
+}
+
+.lli_audio_list_img {
+	border-radius: 4px;
+	box-shadow: 3px 3px 5px grey;
 }
 
 .lli_pub_datetime {
