@@ -63,6 +63,11 @@ body {
 	color: #BBB;
 }
 
+.lli_pub_playtimes {
+	margin-left: 10px;
+	color: #BBB;
+}
+
 .lli_devider {
 	height: 5px;
 }
@@ -81,7 +86,6 @@ body {
 }
 
 .lli_media_title {
-
 }
 
 .lli_media_img {
@@ -95,12 +99,10 @@ body {
 	line-height: 20px;
 }
 
-.ui360, .sm2-360ui {
-  width: 120px;
-  height: 120px;
-  margin: 20px auto 0 auto;
+.audiojs {
+	width: 100%;
 }
 
-.sm2-360btn-default {
-	background-size: 40px 40px !important;
+.audiojs .play-pause {
+	width: 40px;
 }

@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" href="/css/360player.css" th:href="@{/css/360player.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/audioplayer.css" th:href="@{/css/audioplayer.css}" />
     <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
 </head>
 <body>
 
 <!-- Fixed top -->
 <div class="lli_top_ad">
-    <div id="lli_head_ad"><img src="/image/main.png" height="140"/></div>
+    <div id="lli_head_ad"><img src="/image/main.jpg" height="140"/></div>
     <dir id="lli_user_bar">
         <div id="lli_user_wrapper">
             <img class="lli_user_headImg" src="/image/avatar.png" width="40" height="40" th:src="${user.headImgUrl}" />
@@ -25,23 +25,22 @@
 <!-- Page content -->
 <div class="lli_content">
     <div class="lli_media_container">
-        <h4 class="lli_media_title" th:text="${audio.title}"></h4>
+        <h4 class="lli_media_title"><span th:text="${audio.title}"></span><small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}"></small></h4>
         <div class="lli_media_img" th:style="'background-image: url('+ @{/mp/coverImg/__${audio.id}__} +')'">
-            <div id="lli_player_wrapper" class="ui360">
-                <a th:href="@{/mp/audio/__${audio.id}__.mp3}"></a>
-            </div>
         </div>
+            <!-- <audio preload="preload" th:src="@{/mp/audio/__${audio.id}__.mp3}" controls="controls" /> -->
+            <audio preload="preload" controls="controls" src="/audio/police.mp3"></audio>
+                <!-- <source th:src="@{/mp/audio/__${audio.id}__.mp3}" type="audio/mp3" /> -->
+                <!-- <source src="/audio/police.mp3" type="audio/mp3"/> -->
         <div class="lli_media_comment" th:text="${audio.description}"></div>
     </div>
 </div>
 <!-- End page content -->
 
-<script type="text/javascript" src="/js/jquery-3.1.1.min.js" th:src="@{/js/jquery-3.1.1.min.js}"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" src="/js/soundmanager2-jsmin.js" th:src="@{/js/soundmanager2-jsmin.js}"></script>
-<script type="text/javascript" src="/js/berniecode-animator.js" th:src="@{/js/berniecode-animator.js}"></script>
-<script type="text/javascript" src="/js/360player.js" th:src="@{/js/360player.js}"></script>
-<script type="text/javascript" src="/js/mediaDetail.js" th:src="@{/js/mediaDetail.js}"></script>
+<script src="/js/jquery-3.1.1.min.js" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/audio.min.js" th:src="@{/js/audioplayer.js}"></script>
+<script src="/js/mediaDetail.js" th:src="@{/js/mediaDetail.js}"></script>
 
 </body>
 </html>

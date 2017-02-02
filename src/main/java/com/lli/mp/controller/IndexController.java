@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -117,13 +119,22 @@ public class IndexController {
 		return "audioPreview";
 	}
 
-	@RequestMapping("/audio/{audioId}")
-	public void sendAudio(@PathVariable("audioId") String audioId, HttpServletResponse response) throws IOException {
-		audioId = audioId.toLowerCase().replace(".mp3", "");
-		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-		Path audioPath = audioService.getAudioPath(audioId);
-		Files.copy(audioPath, response.getOutputStream());
-	}
+//	@RequestMapping("/audio/{audioId}")
+//	public void sendAudio(@PathVariable("audioId") String audioId, HttpServletResponse response) throws IOException {
+//		audioId = audioId.toLowerCase().replace(".mp3", "");
+//		Path audioPath = audioService.getAudioPath(audioId);
+//
+//		String contentType = URLConnection.guessContentTypeFromName(audioId);
+//		response.setContentType(contentType);
+//		response.setContentLength((int)audioPath.toFile().length());
+//
+//		String headerKey = "Content-Disposition";
+//		String headerValue = String.format("attachment; filename=\"%s\"", audioId);
+//		response.setHeader(headerKey, headerValue);
+//
+//		Files.copy(audioPath, response.getOutputStream());
+//		response.flushBuffer();
+//	}
 
 	@RequestMapping("/local_mediaDetail")
 	public String localMediaPage(@RequestParam("id") String id,

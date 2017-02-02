@@ -9,6 +9,7 @@ public class AudioResponseModel {
 	public String description;
 	public String publishDateTime;
 	public String filename;
+	public int playTimes;
 
 	public String getFriendlyDateTime() {
 		DateTime dt = DateTime.parse(publishDateTime, ISODateTimeFormat.basicDateTime());

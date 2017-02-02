@@ -51,6 +51,7 @@ public class AudioService {
 					uiModel.description = entity.description;
 					uiModel.publishDateTime = entity.publishDateTime;
 					uiModel.filename = entity.fileName;
+					uiModel.playTimes = entity.playTimes;
 					return uiModel;
 				}).collect(Collectors.toList());
 	}

@@ -12,7 +12,7 @@
 <!-- Fixed top -->
 <div class="lli_top_ad">
     <div id="lli_head_ad">
-        <img src="/image/main.png" height="140"/>
+        <img src="/image/main.jpg" height="140"/>
     </div>
     <dir id="lli_user_bar">
         <div id="lli_user_wrapper">
@@ -33,7 +33,7 @@
                     <img class="lli_audio_list_img" th:src="@{/mp/coverImg/__${audio.id}__}" alt="" height="55" width="55" />
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small></h4>
+                    <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small><small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}">播放：</small></h4>
                     <span th:text="${audio.description}"></span>
                 </div>
             </div>
