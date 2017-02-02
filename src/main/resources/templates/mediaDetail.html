@@ -29,7 +29,7 @@
         <div class="lli_media_img" th:style="'background-image: url('+ @{/mp/coverImg/__${audio.id}__} +')'">
         </div>
             <!-- <audio preload="preload" th:src="@{/mp/audio/__${audio.id}__.mp3}" controls="controls" /> -->
-            <audio preload="preload" controls="controls" th:src="@{/audio/__${audio.id}__.mp3}"></audio>
+            <audio preload="preload" controls="controls" th:src="@{/audio/__${audio.filename}__}"></audio>
                 <!-- <source th:src="@{/mp/audio/__${audio.id}__.mp3}" type="audio/mp3" /> -->
                 <!-- <source src="/audio/police.mp3" type="audio/mp3"/> -->
         <div class="lli_media_comment" th:text="${audio.description}"></div>
