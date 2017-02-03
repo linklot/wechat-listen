@@ -128,6 +128,12 @@ public class IndexController {
 		audioService.increaseAudioPlayTimes(audioId);
 	}
 
+	@RequestMapping("/audioComment")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void addComment() {
+
+	}
+
 //	@RequestMapping("/audio/{audioId}")
 //	public void sendAudio(@PathVariable("audioId") String audioId, HttpServletResponse response) throws IOException {
 //		audioId = audioId.toLowerCase().replace(".mp3", "");

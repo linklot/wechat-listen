@@ -4,6 +4,7 @@
     <title>听讯测试</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
 </head>
@@ -31,9 +32,10 @@
             <div class="media lli_media">
                 <div class="media-left">
                     <img class="lli_audio_list_img" th:src="@{/mp/coverImg/__${audio.id}__}" alt="" height="55" width="55" />
+                    <div class="lli_audio_play_times">播放 <span th:text="${audio.playTimes}"></span></div>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small><small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}">播放：</small></h4>
+                    <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small></h4>
                     <span th:text="${audio.description}"></span>
                 </div>
             </div>

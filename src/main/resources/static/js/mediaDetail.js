@@ -4,7 +4,7 @@
 	LLI.audioPlayed = false;
 
 	$(function() {
-		$('audio').audioPlayer(); 
+		$('audio').audioPlayer();
 	});
 
 	LLI.increasePlayTimes = function () {
