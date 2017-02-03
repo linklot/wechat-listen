@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" href="/css/audioplayer.css" th:href="@{/css/audioplayer.css}" />
     <link rel="stylesheet" type="text/css" href="/css/lli.css" th:href="@{/css/lli.css}" />
+
+<script>
+    var LLI = {};
+</script>
+
 </head>
 <body>
 
@@ -23,16 +28,13 @@
 <!-- End fixed top -->
 
 <!-- Page content -->
-<div class="lli_content">
+<div class="lli_content" th:attr="data-audio_id=${audio.id}">
     <div class="lli_media_container">
         <h4 class="lli_media_title"><span th:text="${audio.title}"></span><small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}"></small></h4>
         <div class="lli_media_img" th:style="'background-image: url('+ @{/mp/coverImg/__${audio.id}__} +')'">
         </div>
-            <!-- <audio preload="preload" th:src="@{/mp/audio/__${audio.id}__.mp3}" controls="controls" /> -->
-            <audio preload="preload" controls="controls" src="/audio/police.mp3"></audio>
-                <!-- <source th:src="@{/mp/audio/__${audio.id}__.mp3}" type="audio/mp3" /> -->
-                <!-- <source src="/audio/police.mp3" type="audio/mp3"/> -->
-        <div class="lli_media_comment" th:text="${audio.description}"></div>
+        <audio preload="preload" controls="controls" th:src="@{/audio/__${audio.filename}__}"></audio>
+        <div class="lli_media_description" th:text="${audio.description}"></div>
     </div>
 </div>
 <!-- End page content -->
@@ -41,6 +43,5 @@
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/audio.min.js" th:src="@{/js/audioplayer.js}"></script>
 <script src="/js/mediaDetail.js" th:src="@{/js/mediaDetail.js}"></script>
-
 </body>
 </html>

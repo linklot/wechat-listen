@@ -76,7 +76,15 @@ public class AudioService {
 		model.description = audio.description;
 		model.publishDateTime = DateTime.parse(audio.publishDateTime, ISODateTimeFormat.basicDateTime()).toString("yyyy-MM-dd HH:mm");
 		model.filename = audio.fileName;
+		model.playTimes = audio.playTimes;
 		return model;
+	}
+
+	public void increaseAudioPlayTimes(String audioId) {
+		System.out.println("-----> "+ audioId);
+		Audio audio = audioRepository.findOne(audioId);
+		audio.playTimes = audio.playTimes + 1;
+		audioRepository.save(audio);
 	}
 
 	private Audio makeAudioEntity(String title, String description, String serverImgFilename,

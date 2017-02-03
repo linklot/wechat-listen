@@ -28,10 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
 					.antMatchers("/mp/queryWechatAuthCode", "/mp/queryWechatOpenID",
-							"/mp/index", "/mp/mediaDetail",
-							"/mp/local_index", "/mp/local_mediaDetail",
-							"/js/**", "/audio/**", "/css/**", "/image/**", "/fonts/**",
-							"/mp/coverImg/**", "/mp/audio/**").permitAll()
+							"/mp/**", "/js/**", "/audio/**", "/css/**", "/image/**", "/fonts/**")
+				.permitAll()
 					.anyRequest().authenticated()
 					.and()
 				.formLogin()

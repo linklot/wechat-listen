@@ -179,6 +179,7 @@
 
 			thePlayer.find( '.' + cssClass.playPause ).on( 'click', function()
 			{
+				LLI.increasePlayTimes();
 				if( thePlayer.hasClass( cssClass.playing ) )
 				{
 					$( this ).attr( 'title', params.strPlay ).find( 'a' ).html( params.strPlay );
