@@ -2,15 +2,18 @@ package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.AudioResponseModel;
 import com.lli.mp.controller.model.CommentRequestModel;
+import com.lli.mp.controller.model.CommentResponseModel;
 import com.lli.mp.controller.model.UserUiModel;
+import com.lli.mp.entity.User;
 import com.lli.mp.service.AudioService;
+import com.lli.mp.service.CommentService;
+import com.lli.mp.service.LocalUserService;
 import com.lli.mp.service.UserAuthService;
 import com.lli.mp.wechatclient.util.WechatUriFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -34,14 +36,20 @@ public class IndexController {
 	private WechatUriFactory wechatUriFactory;
 	private UserAuthService userAuthService;
 	private AudioService audioService;
+	private LocalUserService localUserService;
+	private CommentService commentService;
 
 	@Autowired
 	public IndexController(WechatUriFactory wechatUriFactory,
 	                       UserAuthService userAuthService,
-	                       AudioService audioService) {
+	                       AudioService audioService,
+	                       LocalUserService localUserService,
+	                       CommentService commentService) {
 		this.wechatUriFactory = wechatUriFactory;
 		this.userAuthService = userAuthService;
 		this.audioService = audioService;
+		this.localUserService = localUserService;
+		this.commentService = commentService;
 	}
 
 	@RequestMapping("/queryWechatAuthCode")
@@ -131,26 +139,16 @@ public class IndexController {
 	public void addComment(HttpServletRequest request, @RequestBody CommentRequestModel commentModel) {
 		HttpSession session = request.getSession();
 		String userId = session.getAttribute("user_id") == null ? "5885de46f4a3dc1df8c1cc4b" : session.getAttribute("user_id").toString();
-		LOGGER.info("userId: "+ userId);
-		LOGGER.info(commentModel.toJson());
+		User currentUser = localUserService.findUserById(userId);
+		commentService.createComment(userId, currentUser.nickName, commentModel);
 	}
 
-//	@RequestMapping("/audio/{audioId}")
-//	public void sendAudio(@PathVariable("audioId") String audioId, HttpServletResponse response) throws IOException {
-//		audioId = audioId.toLowerCase().replace(".mp3", "");
-//		Path audioPath = audioService.getAudioPath(audioId);
-//
-//		String contentType = URLConnection.guessContentTypeFromName(audioId);
-//		response.setContentType(contentType);
-//		response.setContentLength((int)audioPath.toFile().length());
-//
-//		String headerKey = "Content-Disposition";
-//		String headerValue = String.format("attachment; filename=\"%s\"", audioId);
-//		response.setHeader(headerKey, headerValue);
-//
-//		Files.copy(audioPath, response.getOutputStream());
-//		response.flushBuffer();
-//	}
+	@RequestMapping(value = "/audio/{audioId}/comments", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<CommentResponseModel> getComments(@PathVariable("audioId") String audioId) {
+		List<CommentResponseModel> comments = commentService.findComments(audioId);
+		return comments;
+	}
 
 	@RequestMapping("/local_mediaDetail")
 	public String localMediaPage(@RequestParam("id") String id,

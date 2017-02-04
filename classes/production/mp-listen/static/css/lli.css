@@ -118,3 +118,33 @@ body {
 	margin-right: 20px;
 	font-size: 20px;
 }
+
+#lli_comment_wrapper {
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.lli_comment {
+	border: 1px solid #DDD;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.lli_comment_title {
+	font-size: 16px;
+	font-weight: bold;
+	color: #2D5074;
+	background-color: #F4F4F4;
+	padding: 5px 10px 5px 10px;
+}
+
+.lli_comment_time {
+	font-size: 12px;
+	font-weight: normal;
+	color: #CCC;
+	margin-left: 15px;
+}
+
+.lli_comment_body {
+	padding: 10px;
+}
