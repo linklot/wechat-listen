@@ -1,6 +1,7 @@
 package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.AudioResponseModel;
+import com.lli.mp.controller.model.CommentRequestModel;
 import com.lli.mp.controller.model.UserUiModel;
 import com.lli.mp.service.AudioService;
 import com.lli.mp.service.UserAuthService;
@@ -14,13 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -124,14 +123,16 @@ public class IndexController {
 	@RequestMapping("/audioPlayTimes/{audioId}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void increaseAudioPlayTimes(@PathVariable("audioId") String audioId) {
-		LOGGER.info("here: "+ audioId);
 		audioService.increaseAudioPlayTimes(audioId);
 	}
 
-	@RequestMapping("/audioComment")
+	@RequestMapping(value = "/audioComment", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void addComment() {
-
+	public void addComment(HttpServletRequest request, @RequestBody CommentRequestModel commentModel) {
+		HttpSession session = request.getSession();
+		String userId = session.getAttribute("user_id") == null ? "5885de46f4a3dc1df8c1cc4b" : session.getAttribute("user_id").toString();
+		LOGGER.info("userId: "+ userId);
+		LOGGER.info(commentModel.toJson());
 	}
 
 //	@RequestMapping("/audio/{audioId}")
