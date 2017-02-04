@@ -1,5 +1,6 @@
 package com.lli.mp.controller.model;
 
+import com.lli.mp.utils.DateTimeUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -12,7 +13,6 @@ public class AudioResponseModel {
 	public int playTimes;
 
 	public String getFriendlyDateTime() {
-		DateTime dt = DateTime.parse(publishDateTime, ISODateTimeFormat.basicDateTime());
-		return dt.toString("yyyy-MM-dd HH:mm");
+		return DateTimeUtils.toFriendlyString(publishDateTime);
 	}
 }

@@ -31,7 +31,11 @@
 <!-- Page content -->
 <div class="lli_content" th:attr="data-audio_id=${audio.id}">
     <div class="lli_media_container">
-        <h4 class="lli_media_title"><span th:text="${audio.title}"></span><small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}"></small></h4>
+        <h4 class="lli_media_title">
+            <span th:text="${audio.title}"></span>
+            <small class="lli_pub_playtimes" th:text="${audio.friendlyDateTime}"></small>
+            <small class="lli_pub_playtimes" th:text="'播放: '+ ${audio.playTimes}"></small>
+        </h4>
         <div class="lli_media_img" th:style="'background-image: url('+ @{/mp/coverImg/__${audio.id}__} +')'">
         </div>
         <audio preload="preload" controls="controls" th:src="@{/audio/__${audio.filename}__}"></audio>

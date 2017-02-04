@@ -74,9 +74,9 @@ public class AudioService {
 		model.id = audio.id;
 		model.title = audio.title;
 		model.description = audio.description;
-		model.publishDateTime = DateTime.parse(audio.publishDateTime, ISODateTimeFormat.basicDateTime()).toString("yyyy-MM-dd HH:mm");
 		model.filename = audio.fileName;
 		model.playTimes = audio.playTimes;
+		model.publishDateTime = audio.publishDateTime;
 		return model;
 	}
 

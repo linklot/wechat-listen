@@ -1,5 +1,6 @@
 package com.lli.mp.controller.model;
 
+import com.lli.mp.utils.DateTimeUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.ISODateTimeFormat;
@@ -13,8 +14,7 @@ public class CommentResponseModel {
 	public String time;
 
 	public String getFriendlyTime() {
-		LocalDateTime pubTime = DateTime.parse(time, ISODateTimeFormat.dateTime()).toLocalDateTime();
-		return pubTime.toString("yyyy-MM-dd HH:mm");
+		return DateTimeUtils.toCommentFriendlyString(time);
 	}
 
 	@Override
