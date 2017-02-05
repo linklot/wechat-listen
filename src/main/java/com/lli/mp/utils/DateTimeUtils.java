@@ -23,9 +23,6 @@ public class DateTimeUtils {
 	private static String convertDateToFriendlyString(DateTime now, DateTime yesterday, DateTime inputDt) {
 		StringBuilder sb = new StringBuilder();
 
-//		System.out.println("input: "+ inputDt.year() +" : "+ inputDt.monthOfYear() +" : "+ inputDt.dayOfMonth());
-//		System.out.println("now: "+ now.year() +" : "+ now.monthOfYear() +" : "+ now.dayOfMonth());
-
 		if(inputDt.year().get() == now.year().get()
 				&& inputDt.monthOfYear().get() == now.monthOfYear().get()
 				&& inputDt.dayOfMonth().get() == now.dayOfMonth().get()) {

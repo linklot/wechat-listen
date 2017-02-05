@@ -2,6 +2,7 @@ package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.AudioResponseModel;
 import com.lli.mp.service.AudioService;
+import com.lli.mp.service.LocalUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ public class AdminController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private AudioService audioService;
+	private LocalUserService localUserService;
 
 	@Autowired
-	public AdminController(AudioService audioService) {
+	public AdminController(AudioService audioService, LocalUserService localUserService) {
 		this.audioService = audioService;
+		this.localUserService = localUserService;
 	}
 
 	@RequestMapping("")
@@ -83,5 +86,12 @@ public class AdminController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteAudios(@RequestBody List<String> audioIds) {
 		audioService.deleteAudios(audioIds);
+	}
+
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String findUsers(Model model) {
+		model.addAttribute("count", localUserService.getUsersCunt());
+		model.addAttribute("users", localUserService.findUsers());
+		return "adminUsers";
 	}
 }

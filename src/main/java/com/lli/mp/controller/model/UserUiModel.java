@@ -1,12 +1,16 @@
 package com.lli.mp.controller.model;
 
+import com.lli.mp.utils.DateTimeUtils;
+
 public class UserUiModel {
-	private String nickName;
-	private String sex;
-	private String province;
-	private String city;
-	private String country;
-	private String headImgUrl;
+	public String userId;
+	public String nickName;
+	public String sex;
+	public String province;
+	public String city;
+	public String country;
+	public String headImgUrl;
+	public String lastLoginDateTime;
 
 	public UserUiModel(String nickName, String sex, String province,
 	                   String city, String country, String headImgUrl) {
@@ -16,6 +20,7 @@ public class UserUiModel {
 		this.city = city;
 		this.country = country;
 		this.headImgUrl = headImgUrl;
+		lastLoginDateTime = "";
 	}
 
 	public String getNickName() {
@@ -41,5 +46,17 @@ public class UserUiModel {
 
 	public String getHeadImgUrl() {
 		return headImgUrl;
+	}
+
+	public String getLastLoginDateTime() {
+		return lastLoginDateTime;
+	}
+
+	public String getFriendlyLastLoginDateTime() {
+		try {
+			return DateTimeUtils.toCommentFriendlyString(lastLoginDateTime);
+		} catch (Exception e) {}
+
+		return "";
 	}
 }
