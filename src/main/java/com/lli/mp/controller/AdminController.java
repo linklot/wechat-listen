@@ -5,12 +5,15 @@ import com.lli.mp.service.AudioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -51,14 +54,34 @@ public class AdminController {
 				LOGGER.error("Cannot upload audio. reason: {}", e.getMessage());
 			}
 		}
-		return "adminAudios";
+		return "redirect:/admin";
 	}
 
 	@RequestMapping("/audios/audio/{audioId}")
 	public String editAudio(@PathVariable String audioId, Model model) {
 		AudioResponseModel audioModel = audioService.getAudioForUI(audioId);
 		model.addAttribute("audio", audioModel);
-		LOGGER.info(audioModel.toString());
 		return "adminUpdateAudio";
+	}
+
+	@RequestMapping(value = "/audios/audio", method = RequestMethod.POST)
+	public String submitUpdatedAudio(
+			@RequestParam("audioId") String audioId,
+			@RequestParam("title") String title,
+			@RequestParam("audioFile") MultipartFile audioFile,
+			@RequestParam("description") String description,
+			@RequestParam("coverImg") MultipartFile coverImg) {
+		try {
+			audioService.updateAudio(audioId, title, description, audioFile, coverImg);
+		} catch (IOException e) {
+			LOGGER.error("Failed to update audio. Id: {}", audioId);
+		}
+		return "redirect:/admin";
+	}
+
+	@RequestMapping(value = "/delAudios", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void deleteAudios(@RequestBody List<String> audioIds) {
+		audioService.deleteAudios(audioIds);
 	}
 }

@@ -6,6 +6,8 @@ import com.lli.mp.repository.AudioRepository;
 import com.lli.mp.utils.ServerFileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,12 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 @Service
 public class AudioService {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	private AudioRepository audioRepository;
 	private FileService fileService;
@@ -40,6 +46,25 @@ public class AudioService {
 
 		Audio audio = makeAudioEntity(title, description, serverImgFilename, serverAudioFilename, audioFile);
 		audioRepository.save(audio);
+	}
+
+	@Transactional
+	public void deleteAudios(List<String> audioIds) {
+		audioIds.forEach(id -> {
+			Audio audio = audioRepository.findOne(id);
+			String audioFilename = audio.fileName;
+			String imgFilename = audio.coverImgName;
+
+			try {
+				fileService.deleteAudioFile(audioFilename);
+				fileService.deleteImgFile(imgFilename);
+			} catch(IOException e) {
+				e.printStackTrace();
+				LOGGER.error("Cannot delete audio: {}", id);
+			}
+
+			audioRepository.delete(audio);
+		});
 	}
 
 	public List<AudioResponseModel> getAudiosForUI() {
@@ -80,10 +105,36 @@ public class AudioService {
 		return model;
 	}
 
+	@Transactional
 	public void increaseAudioPlayTimes(String audioId) {
-		System.out.println("-----> "+ audioId);
 		Audio audio = audioRepository.findOne(audioId);
 		audio.playTimes = audio.playTimes + 1;
+		audioRepository.save(audio);
+	}
+
+	@Transactional
+	public void updateAudio(String audioId, String title, String description, MultipartFile audioFile, MultipartFile coverImg) throws IOException {
+		Audio audio = audioRepository.findOne(audioId);
+
+		if(isNotEmpty(title)) {
+			audio.title = title.trim();
+		}
+
+		if(isNotEmpty(description)) {
+			audio.description = description.trim();
+		}
+
+		if(audioFile.getSize() > 0) {
+			fileService.saveAudioFile(audioFile, audio.fileName);
+		}
+
+		if(coverImg.getSize() > 0) {
+			fileService.deleteImgFile(audio.coverImgName);
+			String serverImgFilename = ServerFileUtils.makeServerFilename(coverImg);
+			fileService.saveImgFile(coverImg, serverImgFilename);
+			audio.coverImgName = serverImgFilename;
+		}
+
 		audioRepository.save(audio);
 	}
 

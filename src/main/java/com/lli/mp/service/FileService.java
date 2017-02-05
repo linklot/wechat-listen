@@ -33,6 +33,16 @@ public class FileService {
 		saveFile(file, filePath);
 	}
 
+	public void deleteAudioFile(String filename) throws IOException {
+		Path filePath = Paths.get(audioDir).resolve(filename);
+		Files.deleteIfExists(filePath);
+	}
+
+	public void deleteImgFile(String filename) throws IOException {
+		Path filePath = Paths.get(imgDir).resolve(filename);
+		Files.deleteIfExists(filePath);
+	}
+
 	public Path getCoverImgPath(String filename) {
 		return Paths.get(imgDir).resolve(filename);
 	}

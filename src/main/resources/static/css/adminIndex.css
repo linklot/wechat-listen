@@ -45,3 +45,15 @@
 .lli_audio_row:hover {
 	background-color: #F4F4F4;
 }
+
+#lli-btn-deleteAudio {
+	margin-left: 10px;
+}
+
+#lli_admin_content {
+	padding-top: 20px;
+}
+
+#lli_admin_content table tr th {
+	font-size: 14px;
+}

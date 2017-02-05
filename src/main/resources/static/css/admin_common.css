@@ -2,9 +2,15 @@ html, body {
 	height: 100%;
 	width: 100%;
 	font-size: 12px;
-	font-family: "Microsoft YaHei", "Hiragino Sans GB";
+	font-family: "Microsoft YaHei", "Arial", "Helvetica", "sans-serif";
 }
 
 .lli-align-right {
 	text-align: right;
+}
+
+.lli_page_title {
+	padding-bottom: 15px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
 }
