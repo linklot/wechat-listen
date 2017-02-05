@@ -35,7 +35,7 @@
             <tr th:each="user : ${users}">
               <td th:text="${user.nickName}"></td>
               <td th:text="${user.friendlyLastLoginDateTime}"></td>
-              <td><img th:src="@{__${user.headImgUrl}__}" width="20" height="20" /></td>
+              <td><img th:src="${user.headImgUrl}" width="20" height="20" /></td>
             </tr>
           </tbody>
         </table>
