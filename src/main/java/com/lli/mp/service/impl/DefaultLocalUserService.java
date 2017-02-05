@@ -5,11 +5,11 @@ import com.lli.mp.entity.User;
 import com.lli.mp.repository.UserRepository;
 import com.lli.mp.service.LocalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DefaultLocalUserService implements LocalUserService {
@@ -40,14 +40,15 @@ public class DefaultLocalUserService implements LocalUserService {
 	}
 
 	@Override
-	public List<UserUiModel> findUsers() {
+	public Page<UserUiModel> findUsers(int pageNumber, int pageSize) {
 		Sort sort = new Sort(Sort.Direction.ASC, "nickName");
-		List<User> users = userRepository.findAll(sort);
-		return users.stream().map(user -> {
+		Pageable pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "nickName");
+		Page<User> users = userRepository.findAll(pageable);
+		return users.map(user -> {
 			UserUiModel userModel = new UserUiModel(user.nickName, user.sex, user.province, user.city, user.country, user.headImgUrl);
 			userModel.lastLoginDateTime = user.lastLoginDateTime;
 			return userModel;
-		}).collect(Collectors.toList());
+		});
 	}
 
 	@Override

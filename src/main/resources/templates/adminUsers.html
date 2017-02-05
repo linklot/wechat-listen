@@ -40,6 +40,29 @@
           </tbody>
         </table>
       </div>
+
+      <div class="col-sm-12">
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li th:if="${users.hasPrevious()}">
+              <a th:href="@{/admin/users/__${users.number - 1}__}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:if="${users.number &gt; 1}"><a th:href="@{/admin/users/__${users.number - 2}__}"><span th:text="${users.number-1}"></span></a></li>
+            <li th:if="${users.hasPrevious()}"><a th:href="@{/admin/users/__${users.number - 1}__}"><span th:text="${users.number}"></span></a></li>
+            <li class="lli_pagination_current active"><span th:text="${users.number + 1}"></span></li>
+            <li th:if="${users.number+1 &lt; users.totalPages}"><a th:href="@{/admin/users/__${users.number + 1}__}"><span th:text="${users.number + 2}"></span></a></li>
+            <li th:if="${users.number+2 &lt; users.totalPages}"><a th:href="@{/admin/users/__${users.number + 2}__}"><span th:text="${users.number + 3}"></span></a></li>
+            <li th:if="${users.hasNext()}">
+              <a th:href="@{/admin/users/__${users.number + 1}__}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
     </div>
   </div>
 </div>

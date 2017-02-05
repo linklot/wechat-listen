@@ -21,6 +21,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	private final int PAGE_SIZE = 20;
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private AudioService audioService;
@@ -88,10 +89,11 @@ public class AdminController {
 		audioService.deleteAudios(audioIds);
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String findUsers(Model model) {
+	@RequestMapping(value = "/users/{pageNumber}", method = RequestMethod.GET)
+	public String findUsers(@PathVariable("pageNumber") Integer pageNumber, Model model) {
+		int currentPage = pageNumber == null ? 0 : pageNumber.intValue();
 		model.addAttribute("count", localUserService.getUsersCunt());
-		model.addAttribute("users", localUserService.findUsers());
+		model.addAttribute("users", localUserService.findUsers(currentPage, PAGE_SIZE));
 		return "adminUsers";
 	}
 }

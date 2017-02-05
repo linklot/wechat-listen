@@ -57,3 +57,7 @@
 #lli_admin_content table tr th {
 	font-size: 14px;
 }
+
+.lli_pagination_current {
+	font-weight: bold;
+}
