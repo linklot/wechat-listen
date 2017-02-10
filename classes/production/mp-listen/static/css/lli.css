@@ -89,9 +89,13 @@ body {
 }
 
 .lli_media_img {
-	border: 1px solid #ccc;
-	background-color: #FFF;
 	height: 200px;
+	text-align: center;
+}
+
+.lli_media_coverImg {
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 }
 
 .lli_media_description {
