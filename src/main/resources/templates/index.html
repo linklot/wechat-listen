@@ -32,7 +32,7 @@
             <div class="media lli_media">
                 <div class="media-left">
                     <img class="lli_audio_list_img" th:src="@{/mp/coverImg/__${audio.id}__}" alt="" height="55" width="55" />
-                    <div class="lli_audio_play_times">播放 <span th:text="${audio.playTimes}"></span></div>
+                    <div class="lli_audio_play_times"><i class="fa fa-bell-o" aria-hidden="true"></i> <span th:text="${audio.playTimes}"></span></div>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small></h4>

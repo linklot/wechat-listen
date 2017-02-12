@@ -29,7 +29,8 @@
         <thead>
           <tr>
             <th class="col-sm-1"><input type="checkbox" id="lli_chk_all"/></th>
-            <th class="col-sm-7">标题</th>
+            <th class="col-sm-1">播放</th>
+            <th class="col-sm-6">标题</th>
             <th class="col-sm-2">发布时间</th>
             <th class="col-sm-1">图片</th>
             <th class="col-sm-1">音频</th>
@@ -38,7 +39,8 @@
         <tbody>
           <tr th:each="audio : ${audios}" class="lli_audio_row">
             <td class="col-sm-1"><input type="checkbox" class="lli_chk_item" th:attr="data-audio-id=${audio.id}"/></td>
-            <td class="col-sm-7"><a th:text="${audio.title}" th:href="@{/admin/audios/audio/__${audio.id}__}"></a></td>
+            <td class="col-sm-1" th:text="${audio.playTimes}"></td>
+            <td class="col-sm-6"><a th:text="${audio.title}" th:href="@{/admin/audios/audio/__${audio.id}__}"></a></td>
             <td th:text="${audio.friendlyDateTime}" class="col-sm-2">DateTime</td>
             <td class="col-sm-1"><a th:href="@{/mp/coverImg/__${audio.id}__}" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true"></i></a></td>
             <td class="col-sm-1"><a th:href="@{/mp/audioPreview/__${audio.id}__}" target="_blank"><i class="fa fa-file-audio-o" aria-hidden="true"></i></a></td>
