@@ -67,6 +67,7 @@ public class HttpClientService implements ClientService {
     	String userSubscribeUri = String.format(wechatUserSubscribeTemplate, accessToken, openId);
     	LOGGER.info("Get user subscribe info: {}", userSubscribeUri);
     	String response = restTemplate.getForObject(userSubscribeUri, String.class);
+    	LOGGER.info(response);
 
     	ObjectMapper mapper = new ObjectMapper();
 		UserSubscribeResponseModel responseModel = mapper.readValue(response, UserSubscribeResponseModel.class);
