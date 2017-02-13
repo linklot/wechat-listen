@@ -121,6 +121,7 @@
 
 				theAudio.addEventListener( 'timeupdate', function()
 				{
+					LLI.stopIfNotSubscribedAndOverTwoMin(theAudio);
 					timeCurrent.text( secondsToTime( theAudio.currentTime ) );
 					barPlayed.width( ( theAudio.currentTime / theAudio.duration ) * 100 + '%' );
 				});

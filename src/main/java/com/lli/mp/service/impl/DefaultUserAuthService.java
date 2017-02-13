@@ -66,11 +66,30 @@ public class DefaultUserAuthService implements UserAuthService {
 	@Override
 	public UserUiModel getCurrentUser(HttpServletRequest httpRequest) {
 		String userId = getUserIdFromSession(httpRequest);
-		User user = localUserService.findUserById(userId);
+		User user = getUserById(userId);
 		UserUiModel userUiModel = new UserUiModel(
 				user.nickName, user.sex, user.province, user.city,
 				user.country, user.headImgUrl
 		);
 		return userUiModel;
+	}
+
+	@Override
+	public boolean isUserSubscribed(HttpServletRequest httpRequest) {
+		String userId = getUserIdFromSession(httpRequest);
+
+		try {
+			User user = getUserById(userId);
+			String accessToken = user.accessToken;
+			String openId = user.openId;
+			return clientService.isUserSubscribed(accessToken, openId);
+		} catch (Exception e) {
+
+		}
+		return false;
+	}
+
+	private User getUserById(String userId) {
+		return localUserService.findUserById(userId);
 	}
 }

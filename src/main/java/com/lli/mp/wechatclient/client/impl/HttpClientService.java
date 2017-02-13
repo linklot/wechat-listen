@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lli.mp.wechatclient.client.ClientService;
 import com.lli.mp.wechatclient.model.AccessTokenResponseModel;
 import com.lli.mp.wechatclient.model.UserInfoResponseModel;
+import com.lli.mp.wechatclient.model.UserSubscribeResponseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class HttpClientService implements ClientService {
     private String appsecret;
     private String wechatAccessTokenUriTemplate;
     private String wechatUserInfoUriTemplate;
+    private String wechatUserSubscribeTemplate;
     private RestTemplate restTemplate;
 
     @Autowired
@@ -30,11 +32,13 @@ public class HttpClientService implements ClientService {
                              @Value("${appsecret}") String appsecret,
                              @Value("${wechat_accesstoken_uri_template}") String wechatAccessTokenUriTemplate,
                              @Value("${wechat_userinfo_uri_template}") String wechatUserInfoUriTemplate,
+                             @Value("${wechat_user_subscribe_template}") String wechatUserSubscribeTemplate,
                              RestTemplate restTemplate) {
         this.appId = appId;
         this.appsecret = appsecret;
         this.wechatAccessTokenUriTemplate = wechatAccessTokenUriTemplate;
         this.wechatUserInfoUriTemplate = wechatUserInfoUriTemplate;
+        this.wechatUserSubscribeTemplate = wechatUserSubscribeTemplate;
         this.restTemplate = restTemplate;
         this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
@@ -57,4 +61,15 @@ public class HttpClientService implements ClientService {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(response, UserInfoResponseModel.class);
     }
+
+	@Override
+	public boolean isUserSubscribed(String accessToken, String openId) throws Exception {
+    	String userSubscribeUri = String.format(wechatUserSubscribeTemplate, accessToken, openId);
+    	LOGGER.info("Get user subscribe info: {}", userSubscribeUri);
+    	String response = restTemplate.getForObject(userSubscribeUri, String.class);
+
+    	ObjectMapper mapper = new ObjectMapper();
+		UserSubscribeResponseModel responseModel = mapper.readValue(response, UserSubscribeResponseModel.class);
+		return responseModel.subscribe == 1;
+	}
 }

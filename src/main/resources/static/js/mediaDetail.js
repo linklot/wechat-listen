@@ -2,6 +2,7 @@
 	"use strict";
 
 	LLI.audioPlayed = false;
+	LLI.userSubscribed = false;
 
 	$(function() {
 		$('audio').audioPlayer();
@@ -11,6 +12,8 @@
 		});
 
 		LLI.fetchComments();
+
+		LLI.checkSubscribed();
 	});
 
 	LLI.increasePlayTimes = function () {
@@ -21,7 +24,7 @@
 		LLI.audioPlayed = true;
 		var audioId = $('.lli_content').data('audio_id');
 		$.get('/mp/audioPlayTimes/'+ audioId, function(data) {
-			console.log('done!')
+			
 		});
 	};
 
@@ -70,5 +73,25 @@
 			$('#lli_comment_wrapper').html(html);
 		});
 	};
+
+	LLI.checkSubscribed = function () {
+		LLI.userSubscribed = ('false' !== $('#lli_user_subscribed').val());
+		var subMsgWrapper = $('#lli_msg_unsubscribed');
+
+		if(!LLI.userSubscribed) {
+			var html = "未订阅可以试听两分钟。请订阅！";
+			subMsgWrapper.html(html);
+		}
+	};
+
+	LLI.stopIfNotSubscribedAndOverTwoMin = function (audio) {
+		var maxPlayTime = 120;// seconds
+		var currentTime = audio.currentTime;
+		if(!LLI.userSubscribed && currentTime >= maxPlayTime) {
+			audio.pause();
+			$(audio).attr( 'title', 'Play' ).find( 'a' ).html( 'Play' );
+			$(audio).removeClass( 'playing' );
+		}
+	}
 
 })();

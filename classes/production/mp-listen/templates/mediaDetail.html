@@ -16,6 +16,8 @@
 </head>
 <body>
 
+<input type="hidden" id="lli_user_subscribed" th:value="${subscribed}"/>
+
 <!-- Fixed top -->
 <div class="lli_top_ad">
     <div id="lli_head_ad"><img src="/image/main.jpg" height="140"/></div>
@@ -30,6 +32,8 @@
 
 <!-- Page content -->
 <div class="lli_content" th:attr="data-audio_id=${audio.id}">
+    <div class="col-sm-12"><div id="lli_msg_unsubscribed"></div></div>
+
     <div class="lli_media_container">
         <h4 class="lli_media_title">
             <span th:text="${audio.title}"></span>

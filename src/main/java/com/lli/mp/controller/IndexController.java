@@ -106,6 +106,9 @@ public class IndexController {
 			return "redirect:queryWechatAuthCode";
 		}
 
+		boolean userSubscribed = userAuthService.isUserSubscribed(httpRequest);
+		model.addAttribute("subscribed", userSubscribed);
+
 		UserUiModel userUiModel = userAuthService.getCurrentUser(httpRequest);
 		model.addAttribute("user", userUiModel);
 
@@ -157,6 +160,9 @@ public class IndexController {
 
 		UserUiModel userUiModel = new UserUiModel("一二三", "1", "province", "city", "country", "/image/avatar.png");
 		model.addAttribute("user", userUiModel);
+
+		boolean isSubscribed = false;
+		model.addAttribute("subscribed", isSubscribed);
 
 		AudioResponseModel audioModel = audioService.getAudioForUI(id);
 		model.addAttribute("audio", audioModel);
