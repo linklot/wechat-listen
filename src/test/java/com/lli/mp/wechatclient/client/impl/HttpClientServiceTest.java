@@ -22,7 +22,7 @@ public class HttpClientServiceTest {
 	@Before
 	public void initTestCase() {
 		restTemplate = mock(RestTemplate.class);
-		this.testInstance = new HttpClientService(appId, appSecret, wechatAccessTokenUriTemplate, wechatUserInfoUriTemplate, wechatUserSubscribeTemplate, restTemplate);
+		this.testInstance = new HttpClientService(appId, appSecret, wechatAccessTokenUriTemplate, wechatUserInfoUriTemplate, "", wechatUserSubscribeTemplate, restTemplate);
 	}
 
 	@Test

@@ -9,5 +9,5 @@ public interface UserAuthService {
     boolean isUserSignedIn(HttpServletRequest httpRequest);
     String getUserIdFromSession(HttpServletRequest httpRequest);
     UserUiModel getCurrentUser(HttpServletRequest httpRequest);
-    boolean isUserSubscribed(HttpServletRequest httpRequest);
+    boolean isUserSubscribed(HttpServletRequest httpRequest) throws Exception;
 }

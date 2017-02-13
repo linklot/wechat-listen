@@ -106,8 +106,12 @@ public class IndexController {
 			return "redirect:queryWechatAuthCode";
 		}
 
-		boolean userSubscribed = userAuthService.isUserSubscribed(httpRequest);
-		model.addAttribute("subscribed", userSubscribed);
+		try {
+			boolean userSubscribed = userAuthService.isUserSubscribed(httpRequest);
+			model.addAttribute("subscribed", userSubscribed);
+		} catch (Exception e) {
+			model.addAttribute("subscribed", false);
+		}
 
 		UserUiModel userUiModel = userAuthService.getCurrentUser(httpRequest);
 		model.addAttribute("user", userUiModel);

@@ -3,6 +3,7 @@ package com.lli.mp.wechatclient.client.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lli.mp.wechatclient.client.ClientService;
 import com.lli.mp.wechatclient.model.AccessTokenResponseModel;
+import com.lli.mp.wechatclient.model.CoreAccessTokenResponseModel;
 import com.lli.mp.wechatclient.model.UserInfoResponseModel;
 import com.lli.mp.wechatclient.model.UserSubscribeResponseModel;
 import org.slf4j.Logger;
@@ -25,6 +26,7 @@ public class HttpClientService implements ClientService {
     private String wechatAccessTokenUriTemplate;
     private String wechatUserInfoUriTemplate;
     private String wechatUserSubscribeTemplate;
+    private String wechatCoreTokenTemplate;
     private RestTemplate restTemplate;
 
     @Autowired
@@ -32,6 +34,7 @@ public class HttpClientService implements ClientService {
                              @Value("${appsecret}") String appsecret,
                              @Value("${wechat_accesstoken_uri_template}") String wechatAccessTokenUriTemplate,
                              @Value("${wechat_userinfo_uri_template}") String wechatUserInfoUriTemplate,
+                             @Value("${wechat_core_token_template}") String wechatCoreTokenTemplate,
                              @Value("${wechat_user_subscribe_template}") String wechatUserSubscribeTemplate,
                              RestTemplate restTemplate) {
         this.appId = appId;
@@ -42,6 +45,7 @@ public class HttpClientService implements ClientService {
         this.restTemplate = restTemplate;
         this.restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
         this.restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+        this.wechatCoreTokenTemplate = wechatCoreTokenTemplate;
     }
 
     @Override
@@ -61,6 +65,14 @@ public class HttpClientService implements ClientService {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(response, UserInfoResponseModel.class);
     }
+
+	@Override
+	public CoreAccessTokenResponseModel getCoreAccesstokenModel() throws Exception {
+    	String coreTokenUri = String.format(wechatCoreTokenTemplate, appId, appsecret);
+    	String response = restTemplate.getForObject(coreTokenUri, String.class);
+    	ObjectMapper mapper = new ObjectMapper();
+		return mapper.readValue(response, CoreAccessTokenResponseModel.class);
+	}
 
 	@Override
 	public boolean isUserSubscribed(String accessToken, String openId) throws Exception {
