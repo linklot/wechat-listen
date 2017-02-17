@@ -162,3 +162,9 @@ body {
 	line-height: 40px;
 	border-radius: 8px;
 }
+
+.lli_loading_bar {
+	font-size: 14px;
+	text-align: center;
+	color: #ccc;
+}

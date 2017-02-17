@@ -50,6 +50,7 @@
 	LLI.loadAudios = function () {
 		var isPageLast = $('#lli_page_last').val();
 		if('false' === isPageLast) {
+			$('.lli_loading_bar').removeClass('hidden');
 			var pageNumber = parseInt($('#lli_page_number').val()) + 1;
 			var pageSize = $('#lli_page_size').val();
 			$.ajax({
@@ -94,6 +95,7 @@
 			html += '</div>';
 		}
 
+		$('.lli_loading_bar').addClass('hidden');
 		contentWrapper.html(contentWrapper.html() + html);
 		LLI.initEventHandlers();
 	};
