@@ -1,17 +1,17 @@
 package com.lli.mp.service;
 
 import com.lli.mp.controller.model.AudioResponseModel;
+import com.lli.mp.controller.model.PaginatedAudioResponseModel;
 import com.lli.mp.entity.Audio;
 import com.lli.mp.repository.AudioRepository;
+import com.lli.mp.utils.DateTimeUtils;
 import com.lli.mp.utils.ServerFileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,6 +82,31 @@ public class AudioService {
 					uiModel.playTimes = entity.playTimes;
 					return uiModel;
 				}).collect(Collectors.toList());
+	}
+
+	public PaginatedAudioResponseModel getPaginatedAudiosForUi(int pageNumber, int pageSize) {
+		Pageable pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "publishDateTime");
+		Page<Audio> audios = audioRepository.findAll(pageable);
+
+		List<AudioResponseModel> audioModels = audios.getContent().stream().map(audio -> {
+			AudioResponseModel model = new AudioResponseModel();
+			model.id = audio.id;
+			model.title = audio.title;
+			model.description = audio.description;
+			model.publishDateTime = audio.publishDateTime;
+			model.filename = audio.fileName;
+			model.playTimes = audio.playTimes;
+			model.friendlyDateTime = DateTimeUtils.toFriendlyString(audio.publishDateTime);
+			return model;
+		}).collect(Collectors.toList());
+
+		PaginatedAudioResponseModel pagedModel = new PaginatedAudioResponseModel();
+		pagedModel.isLast = audios.isLast();
+		pagedModel.pageNumber = audios.getNumber();
+		pagedModel.pageSize = audios.getSize();
+		pagedModel.audioModels = audioModels;
+
+		return pagedModel;
 	}
 
 	public Path getCoverImgPath(String audioId) {

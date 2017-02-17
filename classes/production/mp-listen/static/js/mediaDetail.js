@@ -85,7 +85,7 @@
 	};
 
 	LLI.stopIfNotSubscribedAndOverTwoMin = function (audio) {
-		var maxPlayTime = 2;
+		var maxPlayTime = 120;// seconds
 		var currentTime = audio.currentTime;
 		if(!LLI.userSubscribed && currentTime >= maxPlayTime) {
 			audio.pause();

@@ -1,9 +1,6 @@
 package com.lli.mp.controller;
 
-import com.lli.mp.controller.model.AudioResponseModel;
-import com.lli.mp.controller.model.CommentRequestModel;
-import com.lli.mp.controller.model.CommentResponseModel;
-import com.lli.mp.controller.model.UserUiModel;
+import com.lli.mp.controller.model.*;
 import com.lli.mp.entity.User;
 import com.lli.mp.service.AudioService;
 import com.lli.mp.service.CommentService;
@@ -14,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -88,9 +87,6 @@ public class IndexController {
 
 		UserUiModel userUiModel = userAuthService.getCurrentUser(httpRequest);
 		model.addAttribute("user", userUiModel);
-
-		List<AudioResponseModel> audioModels = audioService.getAudiosForUI();
-		model.addAttribute("audios", audioModels);
 
 		return "index";
 	}
@@ -158,6 +154,12 @@ public class IndexController {
 		return comments;
 	}
 
+	@RequestMapping(value = "/audios/{pageSize}/{pageNumber}")
+	@ResponseBody
+	public PaginatedAudioResponseModel getAllAudios(@PathVariable("pageSize") int pageSize, @PathVariable("pageNumber") int pageNumber) {
+		return audioService.getPaginatedAudiosForUi(pageNumber, pageSize);
+	}
+
 	@RequestMapping("/local_mediaDetail")
 	public String localMediaPage(@RequestParam("id") String id,
 	                        HttpServletRequest httpRequest, Model model) {
@@ -179,9 +181,6 @@ public class IndexController {
 	public String localIndex(Model model) {
 		UserUiModel userUiModel = new UserUiModel("一二三", "1", "province", "city", "country", "/image/avatar.png");
 		model.addAttribute("user", userUiModel);
-
-		List<AudioResponseModel> audioModels = audioService.getAudiosForUI();
-		model.addAttribute("audios", audioModels);
 
 		return "index";
 	}

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>听讯测试</title>
+    <title>财商资讯</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" />
@@ -26,22 +26,9 @@
 
 <!-- Page content -->
 <div class="lli_content">
-    
-    <div th:each="audio : ${audios}">
-        <div class="lli_clickable" th:attr="data-id=${audio.id}">
-            <div class="media lli_media">
-                <div class="media-left">
-                    <img class="lli_audio_list_img" th:src="@{/mp/coverImg/__${audio.id}__}" alt="" height="55" width="55" />
-                    <div class="lli_audio_play_times"><i class="fa fa-bell-o" aria-hidden="true"></i> <span th:text="${audio.playTimes}"></span></div>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading"><span th:text="${audio.title}">title</span><small class="lli_pub_datetime" th:text="${audio.friendlyDateTime}">time</small></h4>
-                    <span th:text="${audio.description}"></span>
-                </div>
-            </div>
-        </div>
-        <div class="lli_devider"></div>
-    </div>
+    <input type="hidden" id="lli_page_last" value="false"/>
+    <input type="hidden" id="lli_page_number" value="-1"/>
+    <input type="hidden" id="lli_page_size" value="30"/>
 
 </div>
 <!-- End page content -->

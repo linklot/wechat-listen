@@ -1,8 +1,7 @@
 package com.lli.mp.controller.model;
 
 import com.lli.mp.utils.DateTimeUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class AudioResponseModel {
 	public String id;
@@ -11,8 +10,12 @@ public class AudioResponseModel {
 	public String publishDateTime;
 	public String filename;
 	public int playTimes;
+	public String friendlyDateTime;
 
 	public String getFriendlyDateTime() {
-		return DateTimeUtils.toFriendlyString(publishDateTime);
+		if(isEmpty(friendlyDateTime)) {
+			return DateTimeUtils.toFriendlyString(publishDateTime);
+		}
+		return friendlyDateTime;
 	}
 }
