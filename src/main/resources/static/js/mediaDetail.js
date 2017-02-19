@@ -14,6 +14,8 @@
 		LLI.fetchComments();
 
 		LLI.checkSubscribed();
+
+		$('.audioplayer-playpause').trigger('click');
 	});
 
 	LLI.increasePlayTimes = function () {

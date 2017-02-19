@@ -43,7 +43,6 @@ public class CommentRepositoryImpl {
 	}
 
 	public List<Comment> findNonHiddenCommentsByAudioId(String audioId) {
-		System.out.println("here!");
 		Query query = new Query()
 				.addCriteria(Criteria.where("audioId").is(audioId))
 				.addCriteria(Criteria.where("hidden").is(false))
