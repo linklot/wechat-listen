@@ -1,13 +1,15 @@
 package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.AudioResponseModel;
+import com.lli.mp.controller.model.CommentResponseModel;
+import com.lli.mp.controller.model.ShowHideCommentsRequestModel;
 import com.lli.mp.service.AudioService;
+import com.lli.mp.service.CommentService;
 import com.lli.mp.service.LocalUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +28,14 @@ public class AdminController {
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private AudioService audioService;
 	private LocalUserService localUserService;
+	private CommentService commentService;
 
 	@Autowired
-	public AdminController(AudioService audioService, LocalUserService localUserService) {
+	public AdminController(AudioService audioService, LocalUserService localUserService,
+	                       CommentService commentService) {
 		this.audioService = audioService;
 		this.localUserService = localUserService;
+		this.commentService = commentService;
 	}
 
 	@RequestMapping("")
@@ -51,7 +56,7 @@ public class AdminController {
 			@RequestParam("description") String description,
 			@RequestParam("coverImg") MultipartFile coverImg) {
 
-		if(isNotEmpty(title) && isNotEmpty(description) && audioFile.getSize() > 0 && coverImg.getSize() > 0) {
+		if (isNotEmpty(title) && isNotEmpty(description) && audioFile.getSize() > 0 && coverImg.getSize() > 0) {
 			try {
 				audioService.saveAudio(title, description, coverImg, audioFile);
 			} catch (IOException e) {
@@ -95,5 +100,17 @@ public class AdminController {
 		model.addAttribute("count", localUserService.getUsersCunt());
 		model.addAttribute("users", localUserService.findUsers(currentPage, PAGE_SIZE));
 		return "adminUsers";
+	}
+
+	@RequestMapping(value = "/audios/audio/{audioId}/comments", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<CommentResponseModel> getAudioComments(@PathVariable("audioId") String audioId) {
+		return commentService.findComments(audioId);
+	}
+
+	@RequestMapping(value = "/comments", method = RequestMethod.POST, consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void hideShowComments(@RequestBody ShowHideCommentsRequestModel showHideCommentsRequestModel) {
+		commentService.updateShowHide(showHideCommentsRequestModel.audioId, showHideCommentsRequestModel.idsToHide);
 	}
 }

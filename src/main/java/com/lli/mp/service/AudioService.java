@@ -4,6 +4,7 @@ import com.lli.mp.controller.model.AudioResponseModel;
 import com.lli.mp.controller.model.PaginatedAudioResponseModel;
 import com.lli.mp.entity.Audio;
 import com.lli.mp.repository.AudioRepository;
+import com.lli.mp.repository.CommentRepositoryImpl;
 import com.lli.mp.utils.DateTimeUtils;
 import com.lli.mp.utils.ServerFileUtils;
 import org.joda.time.DateTime;
@@ -30,11 +31,14 @@ public class AudioService {
 
 	private AudioRepository audioRepository;
 	private FileService fileService;
+	private CommentRepositoryImpl commentRepositoryImpl;
 
 	@Autowired
-	public AudioService(AudioRepository audioRepository, FileService fileService) {
+	public AudioService(AudioRepository audioRepository, FileService fileService,
+	                    CommentRepositoryImpl commentRepositoryImpl) {
 		this.audioRepository = audioRepository;
 		this.fileService = fileService;
+		this.commentRepositoryImpl = commentRepositoryImpl;
 	}
 
 	@Transactional
@@ -70,7 +74,7 @@ public class AudioService {
 	}
 
 	public List<AudioResponseModel> getAudiosForUI() {
-		Pageable pageable = new PageRequest(0, 30, Sort.Direction.DESC, "publishDateTime");
+		Pageable pageable = new PageRequest(0, 60, Sort.Direction.DESC, "publishDateTime");
 		return audioRepository.findAll(pageable).getContent().stream()
 				.map(entity -> {
 					AudioResponseModel uiModel = new AudioResponseModel();
@@ -80,6 +84,10 @@ public class AudioService {
 					uiModel.publishDateTime = entity.publishDateTime;
 					uiModel.filename = entity.fileName;
 					uiModel.playTimes = entity.playTimes;
+
+					long commentCount = commentRepositoryImpl.countByAudioId(entity.id);
+					uiModel.commentCount = Long.valueOf(commentCount).intValue();
+
 					return uiModel;
 				}).collect(Collectors.toList());
 	}

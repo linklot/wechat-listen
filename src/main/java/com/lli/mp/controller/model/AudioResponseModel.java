@@ -11,6 +11,7 @@ public class AudioResponseModel {
 	public String filename;
 	public int playTimes;
 	public String friendlyDateTime;
+	public int commentCount;
 
 	public String getFriendlyDateTime() {
 		if(isEmpty(friendlyDateTime)) {

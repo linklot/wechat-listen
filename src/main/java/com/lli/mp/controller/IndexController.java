@@ -150,7 +150,7 @@ public class IndexController {
 	@RequestMapping(value = "/audio/{audioId}/comments", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public List<CommentResponseModel> getComments(@PathVariable("audioId") String audioId) {
-		List<CommentResponseModel> comments = commentService.findComments(audioId);
+		List<CommentResponseModel> comments = commentService.findNonHiddenComments(audioId);
 		return comments;
 	}
 
@@ -168,8 +168,7 @@ public class IndexController {
 		UserUiModel userUiModel = new UserUiModel("一二三", "1", "province", "city", "country", "/image/avatar.png");
 		model.addAttribute("user", userUiModel);
 
-		boolean isSubscribed = false;
-		model.addAttribute("subscribed", isSubscribed);
+		model.addAttribute("subscribed", true);
 
 		AudioResponseModel audioModel = audioService.getAudioForUI(id);
 		model.addAttribute("audio", audioModel);

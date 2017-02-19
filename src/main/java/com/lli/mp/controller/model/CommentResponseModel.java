@@ -1,9 +1,6 @@
 package com.lli.mp.controller.model;
 
 import com.lli.mp.utils.DateTimeUtils;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.ISODateTimeFormat;
 
 public class CommentResponseModel {
 	public String id;
@@ -12,9 +9,15 @@ public class CommentResponseModel {
 	public String audioId;
 	public String comment;
 	public String time;
+	public String friendlyTime;
+	public boolean hidden;
 
 	public String getFriendlyTime() {
-		return DateTimeUtils.toCommentFriendlyString(time);
+		if(null == friendlyTime) {
+			return DateTimeUtils.toCommentFriendlyString(time);
+		} else {
+			return this.friendlyTime;
+		}
 	}
 
 	@Override

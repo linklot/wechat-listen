@@ -11,4 +11,5 @@ public class Comment {
 	public String audioId;
 	public String comment;
 	public String time;
+	public boolean hidden;
 }

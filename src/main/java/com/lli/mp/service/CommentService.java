@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommentService {
 	void createComment(String userId, String userNickname, CommentRequestModel commentModel);
 	List<CommentResponseModel> findComments(String audioId);
+	void updateShowHide(String audioId, List<String> commentIds);
+	List<CommentResponseModel> findNonHiddenComments(String audioId);
 }

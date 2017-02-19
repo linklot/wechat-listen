@@ -61,3 +61,9 @@
 .lli_pagination_current {
 	font-weight: bold;
 }
+
+#lli_modal_comments_wrapper {
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
