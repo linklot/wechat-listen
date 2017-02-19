@@ -151,11 +151,13 @@
 	};
 
 	LLI.submitHideShowComments = function (idsToHide) {
+		var audioId = $("#commentsModal").data('audio-id');
+		var json = {"audioId": audioId, "idsToHide": idsToHide};
 		$.ajax({
 			url: '/admin/comments',
 			type: 'post',
 			contentType: 'application/json',
-			data: JSON.stringify(idsToHide)
+			data: JSON.stringify(json)
 		}).done(function (data) {
 			$('#lli_btn_hideShowComment').removeClass('disabled');
 			$("#commentsModal").modal('toggle');
