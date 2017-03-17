@@ -203,7 +203,7 @@
 			html += '<td class="col-sm-1">'+ audio.playTimes +'</td>';
 			html += '<td class="col-sm-5"><a href="/admin/audios/audio/'+ audio.id +'">'+ audio.title +'</a></td>';
 			html += '<td class="col-sm-2">'+ audio.friendlyDateTime +'</td>';
-			html += '<td class="col-sm-1"><a href="/mp/converImage/'+ audio.id +'" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true"></i></a></td>';
+			html += '<td class="col-sm-1"><a href="/mp/converImg/'+ audio.id +'" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true"></i></a></td>';
 			html += '<td class="col-sm-1"><a href="/mp/audioPreview/'+ audio.id +'" target="_blank"><i class="fa fa-file-audio-o" aria-hidden="true"></i></a></td>';
 			html += '<td class="col-sm-1"><button type="button" class="btn btn-info btn-xs lli_btn_audio_comments" data-audio-id="'+ audio.id +'">'+ audio.commentCount +'</span></td>';
 			html += '</tr>';
