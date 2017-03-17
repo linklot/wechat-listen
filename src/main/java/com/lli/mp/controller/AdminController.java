@@ -2,6 +2,7 @@ package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.AudioResponseModel;
 import com.lli.mp.controller.model.CommentResponseModel;
+import com.lli.mp.controller.model.PaginatedAdminAudiosResponseModel;
 import com.lli.mp.controller.model.ShowHideCommentsRequestModel;
 import com.lli.mp.service.AudioService;
 import com.lli.mp.service.CommentService;
@@ -39,9 +40,14 @@ public class AdminController {
 	}
 
 	@RequestMapping("")
-	public String adminIndex(Model model) {
-		model.addAttribute("audios", audioService.getAudiosForUI());
+	public String adminIndex() {
 		return "adminAudios";
+	}
+
+	@RequestMapping(value = "/audios/{pageSize}/{pageNumber}", method = RequestMethod.GET)
+	@ResponseBody
+	public PaginatedAdminAudiosResponseModel findAdminAudios(@PathVariable("pageSize") int pageSize, @PathVariable("pageNumber") int pageNumber) {
+		return audioService.getPaginatedAdminAudiosForUi(pageSize, pageNumber);
 	}
 
 	@RequestMapping("/createAudio")
@@ -96,7 +102,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/users/{pageNumber}", method = RequestMethod.GET)
 	public String findUsers(@PathVariable("pageNumber") Integer pageNumber, Model model) {
-		int currentPage = pageNumber == null ? 0 : pageNumber.intValue();
+		int currentPage = pageNumber == null ? 0 : pageNumber;
 		model.addAttribute("count", localUserService.getUsersCunt());
 		model.addAttribute("users", localUserService.findUsers(currentPage, PAGE_SIZE));
 		return "adminUsers";

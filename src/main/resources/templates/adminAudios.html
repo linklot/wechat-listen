@@ -25,30 +25,26 @@
   		</ul>
   	</div>
   	<div id="lli_admin_content" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="col-sm-1"><input type="checkbox" id="lli_chk_all"/></th>
-            <th class="col-sm-1">播放</th>
-            <th class="col-sm-5">标题</th>
-            <th class="col-sm-2">发布时间</th>
-            <th class="col-sm-1">图片</th>
-            <th class="col-sm-1">音频</th>
-            <th class="col-sm-1">评论</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="audio : ${audios}" class="lli_audio_row">
-            <td class="col-sm-1"><input type="checkbox" class="lli_chk_item" th:attr="data-audio-id=${audio.id}"/></td>
-            <td class="col-sm-1" th:text="${audio.playTimes}"></td>
-            <td class="col-sm-5"><a th:text="${audio.title}" th:href="@{/admin/audios/audio/__${audio.id}__}"></a></td>
-            <td th:text="${audio.friendlyDateTime}" class="col-sm-2">DateTime</td>
-            <td class="col-sm-1"><a th:href="@{/mp/coverImg/__${audio.id}__}" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true"></i></a></td>
-            <td class="col-sm-1"><a th:href="@{/mp/audioPreview/__${audio.id}__}" target="_blank"><i class="fa fa-file-audio-o" aria-hidden="true"></i></a></td>
-            <td class="col-sm-1"><button type="button" class="btn btn-info btn-xs lli_btn_audio_comments" th:attr="data-audio-id=${audio.id}"><span th:text="${audio.commentCount}" th:remove="tag"></span></button></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-fixed">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-sm-1"><input type="checkbox" id="lli_chk_all"/></th>
+              <th class="col-sm-1">播放</th>
+              <th class="col-sm-5">标题</th>
+              <th class="col-sm-2">发布时间</th>
+              <th class="col-sm-1">图片</th>
+              <th class="col-sm-1">音频</th>
+              <th class="col-sm-1">评论</th>
+            </tr>
+          </thead>
+          <tbody id="lli_admin_audios_wrapper">
+            <input type="hidden" id="lli_page_last" value="false"/>
+            <input type="hidden" id="lli_page_number" value="-1"/>
+            <input type="hidden" id="lli_page_size" value="30"/>
+          </tbody>
+        </table>
+      </div>
       <button id="lli-btn-createAudio" class="btn btn-sm btn-primary">添加音频</button>
       <button id="lli-btn-deleteAudio" class="btn btn-sm btn-default hidden">删除选中</button>
     </div>

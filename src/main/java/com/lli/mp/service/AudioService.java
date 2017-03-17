@@ -1,6 +1,7 @@
 package com.lli.mp.service;
 
 import com.lli.mp.controller.model.AudioResponseModel;
+import com.lli.mp.controller.model.PaginatedAdminAudiosResponseModel;
 import com.lli.mp.controller.model.PaginatedAudioResponseModel;
 import com.lli.mp.entity.Audio;
 import com.lli.mp.repository.AudioRepository;
@@ -92,9 +93,31 @@ public class AudioService {
 				}).collect(Collectors.toList());
 	}
 
+	public PaginatedAdminAudiosResponseModel getPaginatedAdminAudiosForUi(int pageSize, int pageNumber) {
+		Page<Audio> audios = findPagedAudios(pageNumber, pageSize);
+		List<AudioResponseModel> audioModels = audios.getContent().stream().map(audio -> {
+			AudioResponseModel model = new AudioResponseModel();
+			model.id = audio.id;
+			model.title = audio.title;
+			model.description = audio.description;
+			model.publishDateTime = audio.publishDateTime;
+			model.filename = audio.fileName;
+			model.playTimes = audio.playTimes;
+			long commentCount = commentRepositoryImpl.countByAudioId(audio.id);
+			model.commentCount = Long.valueOf(commentCount).intValue();
+			return model;
+		}).collect(Collectors.toList());
+
+		PaginatedAdminAudiosResponseModel pagedModel = new PaginatedAdminAudiosResponseModel();
+		pagedModel.isLast = audios.isLast();
+		pagedModel.pageNumber = audios.getNumber();
+		pagedModel.pageSize = audios.getSize();
+		pagedModel.audioModels = audioModels;
+		return pagedModel;
+	}
+
 	public PaginatedAudioResponseModel getPaginatedAudiosForUi(int pageNumber, int pageSize) {
-		Pageable pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "publishDateTime");
-		Page<Audio> audios = audioRepository.findAll(pageable);
+		Page<Audio> audios = findPagedAudios(pageNumber, pageSize);
 
 		List<AudioResponseModel> audioModels = audios.getContent().stream().map(audio -> {
 			AudioResponseModel model = new AudioResponseModel();
@@ -191,5 +214,10 @@ public class AudioService {
 
 	private Sort orderByPublishDateTime() {
 		return new Sort(Sort.Direction.DESC, "publishDateTime");
+	}
+
+	private Page<Audio> findPagedAudios(int pageNumber, int pageSize) {
+		Pageable pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "publishDateTime");
+		return audioRepository.findAll(pageable);
 	}
 }

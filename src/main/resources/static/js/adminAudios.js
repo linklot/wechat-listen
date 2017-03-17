@@ -1,7 +1,9 @@
 (function () {
-	"use strict";
+	'use strict';
 
 	$(function () {
+		LLI.loadAudios();
+
 		$('#lli-btn-createAudio').on('click', function () {
 			location.href = '/admin/createAudio';
 		});
@@ -45,6 +47,8 @@
 		$('.lli_btn_audio_comments').on('click', LLI.loadCommentsData);
 
 		$('#lli_btn_hideShowComment').on('click', LLI.hideShowComments);
+
+		$('.table-fixed').scroll(LLI.detectWindowScroll);
 	});
 
 	LLI.showHideDelBtn = function () {
@@ -161,6 +165,61 @@
 		}).done(function (data) {
 			$('#lli_btn_hideShowComment').removeClass('disabled');
 			$("#commentsModal").modal('toggle');
+		});
+	};
+
+	LLI.detectWindowScroll = function () { //detect page scroll
+		if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            LLI.loadAudios();
+        }
+	};
+
+	LLI.loadAudios = function () {
+		var isPageLast = $('#lli_page_last').val();
+		if('false' === isPageLast) {
+			var pageNumber = parseInt($('#lli_page_number').val()) + 1;
+			var pageSize = $('#lli_page_size').val();
+			$.ajax({
+				url: '/admin/audios/'+ pageSize +'/'+ pageNumber,
+				type: 'get',
+				contentType: 'application/json'
+			}).done(function (pagedAudios) {
+				LLI.appendNewlyLoadedAudios(pagedAudios);
+			});
+		}
+	};
+
+	LLI.appendNewlyLoadedAudios = function (pagedAudios) {
+		var contentWrapper = $('#lli_admin_audios_wrapper');
+		var audios = pagedAudios.audioModels;
+		$('#lli_page_last').val(pagedAudios.isLast);
+		$('#lli_page_number').val(pagedAudios.pageNumber);
+
+		var html = '';
+		for(var i=0; i<audios.length; i++) {
+			var audio = audios[i];
+			html += '<tr class="lli_audio_row">';
+			html += '<td class="col-sm-1"><input type="checkbox" class="lli_chk_item" data-audio-id="'+ audio.id +'"/></td>';
+			html += '<td class="col-sm-1">'+ audio.playTimes +'</td>';
+			html += '<td class="col-sm-5"><a href="/admin/audios/audio/'+ audio.id +'">'+ audio.title +'</a></td>';
+			html += '<td class="col-sm-2">'+ audio.friendlyDateTime +'</td>';
+			html += '<td class="col-sm-1"><a href="/mp/converImage/'+ audio.id +'" target="_blank"><i class="fa fa-file-image-o" aria-hidden="true"></i></a></td>';
+			html += '<td class="col-sm-1"><a href="/mp/audioPreview/'+ audio.id +'" target="_blank"><i class="fa fa-file-audio-o" aria-hidden="true"></i></a></td>';
+			html += '<td class="col-sm-1"><button type="button" class="btn btn-info btn-xs lli_btn_audio_comments" data-audio-id="'+ audio.id +'">'+ audio.commentCount +'</span></td>';
+			html += '</tr>';
+		}
+		contentWrapper.append(html);
+
+		LLI.bindCommentBtnClickHandler();
+	};
+
+	LLI.bindCommentBtnClickHandler = function () {
+		$('.lli_btn_audio_comments').off();
+		$('.lli_btn_audio_comments').on('click', LLI.loadCommentsData);
+
+		$('.lli_chk_item').off();
+		$('.lli_chk_item').on('click', function(e) {
+			LLI.showHideDelBtn();
 		});
 	};
 
