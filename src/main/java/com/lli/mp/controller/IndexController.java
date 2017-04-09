@@ -79,10 +79,8 @@ public class IndexController {
 		String targetPage = httpSessionUtils.getTargetPageFromSession(httpRequest);
 		if(targetPage.equals("redirect:mediaDetail")) {
 			String mediaId = httpSessionUtils.getMediaIdFromSession(httpRequest);
-			httpSessionUtils.emptySessionTargetPage(httpRequest);
 			return targetPage+"?id="+mediaId;
 		} else {
-			httpSessionUtils.emptySessionTargetPage(httpRequest);
 			return "redirect:index";
 		}
 	}
@@ -99,6 +97,7 @@ public class IndexController {
 		UserUiModel userUiModel = userAuthService.getCurrentUser(httpRequest);
 		model.addAttribute("user", userUiModel);
 
+		httpSessionUtils.emptySessionTargetPage(httpRequest);
 		return "index";
 	}
 
@@ -129,6 +128,7 @@ public class IndexController {
 		AudioResponseModel audioModel = audioService.getAudioForUI(id);
 		model.addAttribute("audio", audioModel);
 
+		httpSessionUtils.emptySessionTargetPage(httpRequest);
 		return "mediaDetail";
 	}
 
