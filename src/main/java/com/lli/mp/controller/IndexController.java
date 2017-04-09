@@ -77,6 +77,7 @@ public class IndexController {
 		}
 
 		String targetPage = httpSessionUtils.getTargetPageFromSession(httpRequest);
+		LOGGER.info("targetPage: "+ targetPage);
 		if(targetPage.equals("redirect:index")) {
 			return targetPage;
 		} else {
