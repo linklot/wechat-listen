@@ -1,6 +1,7 @@
 package com.lli.mp.controller;
 
 import com.lli.mp.controller.model.*;
+import com.lli.mp.controller.utils.HttpSessionUtils;
 import com.lli.mp.entity.User;
 import com.lli.mp.service.AudioService;
 import com.lli.mp.service.CommentService;
@@ -37,18 +38,21 @@ public class IndexController {
 	private AudioService audioService;
 	private LocalUserService localUserService;
 	private CommentService commentService;
+	private HttpSessionUtils httpSessionUtils;
 
 	@Autowired
 	public IndexController(WechatUriFactory wechatUriFactory,
 	                       UserAuthService userAuthService,
 	                       AudioService audioService,
 	                       LocalUserService localUserService,
-	                       CommentService commentService) {
+	                       CommentService commentService,
+	                       HttpSessionUtils httpSessionUtils) {
 		this.wechatUriFactory = wechatUriFactory;
 		this.userAuthService = userAuthService;
 		this.audioService = audioService;
 		this.localUserService = localUserService;
 		this.commentService = commentService;
+		this.httpSessionUtils = httpSessionUtils;
 	}
 
 	@RequestMapping("/queryWechatAuthCode")
@@ -71,14 +75,12 @@ public class IndexController {
 		} catch (Exception e) {
 			LOGGER.error("error: {}", e.getMessage());
 		}
-
-		model.addAttribute("name", "Bob Smith");
-
-		return "redirect:index";
+		return httpSessionUtils.getTargetPageFromSession(httpRequest);
 	}
 
 	@RequestMapping("/index")
 	public String indexPage(HttpServletRequest httpRequest, Model model) {
+		httpSessionUtils.setTargetPageInSession(httpRequest, "index");
 		boolean userSignedIn = userAuthService.isUserSignedIn(httpRequest);
 
 		if(!userSignedIn) {
@@ -94,6 +96,7 @@ public class IndexController {
 	@RequestMapping("/mediaDetail")
 	public String mediaPage(@RequestParam("id") String id,
 	                        HttpServletRequest httpRequest, Model model) {
+		httpSessionUtils.setTargetPageInSession(httpRequest, "mediaDetail");
 		model.addAttribute("id", id);
 
 		boolean userSignedIn = userAuthService.isUserSignedIn(httpRequest);

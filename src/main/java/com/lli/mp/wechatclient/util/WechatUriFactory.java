@@ -27,13 +27,11 @@ public class WechatUriFactory {
 
     public String makeWechatOAuthRedirectUri() {
         try {
-            String wechatOAuthUri = String.format(wechatOAuthUriTemplate, appid,
+            return String.format(wechatOAuthUriTemplate, appid,
                     URLEncoder.encode(userDetailsLocalUri, StandardCharsets.UTF_8.toString()));
-            return wechatOAuthUri;
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Unsupported encoding!");
         }
-
         return "";
     }
 }

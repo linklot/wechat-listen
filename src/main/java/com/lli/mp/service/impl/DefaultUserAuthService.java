@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 public class DefaultUserAuthService implements UserAuthService {
@@ -55,7 +55,7 @@ public class DefaultUserAuthService implements UserAuthService {
 	public boolean isUserSignedIn(HttpServletRequest httpRequest) {
 		HttpSession session = httpRequest.getSession();
 		if(session != null && session.getAttribute("user_id") != null) {
-			return isNotEmpty(session.getAttribute("user_id").toString());
+			return isNotBlank(session.getAttribute("user_id").toString());
 		}
 		return false;
 	}
@@ -73,11 +73,10 @@ public class DefaultUserAuthService implements UserAuthService {
 	public UserUiModel getCurrentUser(HttpServletRequest httpRequest) {
 		String userId = getUserIdFromSession(httpRequest);
 		User user = getUserById(userId);
-		UserUiModel userUiModel = new UserUiModel(
+		return new UserUiModel(
 				user.nickName, user.sex, user.province, user.city,
 				user.country, user.headImgUrl
 		);
-		return userUiModel;
 	}
 
 	@Override
@@ -95,7 +94,9 @@ public class DefaultUserAuthService implements UserAuthService {
 			try {
 				LOGGER.info("2nd try. accessToken: {}, openId: {}", coreAccessToken.accessToken, openId);
 				return clientService.isUserSubscribed(coreAccessToken.accessToken, openId);
-			} catch (Exception e1) {}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		return false;
 	}
