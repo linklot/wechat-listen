@@ -75,7 +75,14 @@ public class IndexController {
 		} catch (Exception e) {
 			LOGGER.error("error: {}", e.getMessage());
 		}
-		return httpSessionUtils.getTargetPageFromSession(httpRequest);
+
+		String targetPage = httpSessionUtils.getTargetPageFromSession(httpRequest);
+		if(targetPage.equals("redirect:index")) {
+			return targetPage;
+		} else {
+			String mediaId = httpSessionUtils.getMediaIdFromSession(httpRequest);
+			return targetPage+"?id="+mediaId;
+		}
 	}
 
 	@RequestMapping("/index")
@@ -97,6 +104,7 @@ public class IndexController {
 	public String mediaPage(@RequestParam("id") String id,
 	                        HttpServletRequest httpRequest, Model model) {
 		httpSessionUtils.setTargetPageInSession(httpRequest, "mediaDetail");
+		httpSessionUtils.setMediaIdInSession(httpRequest, id);
 		model.addAttribute("id", id);
 
 		boolean userSignedIn = userAuthService.isUserSignedIn(httpRequest);

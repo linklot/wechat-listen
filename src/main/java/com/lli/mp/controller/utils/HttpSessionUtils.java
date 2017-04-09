@@ -12,9 +12,19 @@ public class HttpSessionUtils {
 		session.setAttribute("targetPage", targetPage);
 	}
 
+	public void setMediaIdInSession(HttpServletRequest httpRequest, String id) {
+		HttpSession session = getSession(httpRequest);
+		session.setAttribute("mediaId", id);
+	}
+
 	public String getTargetPageFromSession(HttpServletRequest httpRequest) {
 		HttpSession session = getSession(httpRequest);
 		return "redirect:"+ session.getAttribute("targetPage");
+	}
+
+	public String getMediaIdFromSession(HttpServletRequest httpRequest) {
+		HttpSession session = getSession(httpRequest);
+		return "redirect:"+ session.getAttribute("mediaId");
 	}
 
 	private HttpSession getSession(HttpServletRequest httpServletRequest) {
