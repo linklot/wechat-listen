@@ -1,8 +1,11 @@
 package com.lli.mp.controller.utils;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Component
 public class HttpSessionUtils {
 	public void setTargetPageInSession(HttpServletRequest httpRequest, String targetPage) {
 		HttpSession session = getSession(httpRequest);
