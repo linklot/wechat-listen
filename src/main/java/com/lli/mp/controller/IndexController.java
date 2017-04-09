@@ -79,8 +79,10 @@ public class IndexController {
 		String targetPage = httpSessionUtils.getTargetPageFromSession(httpRequest);
 		if(targetPage.equals("redirect:mediaDetail")) {
 			String mediaId = httpSessionUtils.getMediaIdFromSession(httpRequest);
+			httpSessionUtils.emptySessionTargetPage(httpRequest);
 			return targetPage+"?id="+mediaId;
 		} else {
+			httpSessionUtils.emptySessionTargetPage(httpRequest);
 			return "redirect:index";
 		}
 	}

@@ -27,6 +27,11 @@ public class HttpSessionUtils {
 		return (String) session.getAttribute("mediaId");
 	}
 
+	public void emptySessionTargetPage(HttpServletRequest httpRequest) {
+		HttpSession session = getSession(httpRequest);
+		session.setAttribute("targetPage", null);
+	}
+
 	private HttpSession getSession(HttpServletRequest httpServletRequest) {
 		return httpServletRequest.getSession();
 	}
