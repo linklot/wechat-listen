@@ -77,12 +77,11 @@ public class IndexController {
 		}
 
 		String targetPage = httpSessionUtils.getTargetPageFromSession(httpRequest);
-		LOGGER.info("targetPage: "+ targetPage);
-		if(targetPage.equals("redirect:index")) {
-			return targetPage;
-		} else {
+		if(targetPage.equals("redirect:mediaDetail")) {
 			String mediaId = httpSessionUtils.getMediaIdFromSession(httpRequest);
 			return targetPage+"?id="+mediaId;
+		} else {
+			return "redirect:index";
 		}
 	}
 
