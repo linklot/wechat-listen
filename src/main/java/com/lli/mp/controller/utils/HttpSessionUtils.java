@@ -24,7 +24,7 @@ public class HttpSessionUtils {
 
 	public String getMediaIdFromSession(HttpServletRequest httpRequest) {
 		HttpSession session = getSession(httpRequest);
-		return "redirect:"+ session.getAttribute("mediaId");
+		return (String) session.getAttribute("mediaId");
 	}
 
 	private HttpSession getSession(HttpServletRequest httpServletRequest) {
